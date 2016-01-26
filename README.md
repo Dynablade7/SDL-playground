@@ -1,5 +1,5 @@
-SDL-playground
-
+**SDL-playground
+**
 ================
 
 Feel free to use whatever code you might find interesting in this repo. Also, any feedback is highly appreciated! Keep in mind that I am in no way a professional programmer - I am merely a dedicated software engineering student who likes to play around. 

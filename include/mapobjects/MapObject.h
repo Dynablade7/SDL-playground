@@ -3,6 +3,11 @@
 
 #include "Sprite.h"
 
+/**
+ * This will be the super class of all map objects, including player,
+ * enemies and whatnot.
+ * << Not implemented >>
+ */
 class MapObject {
     public:
         MapObject();

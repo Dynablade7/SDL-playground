@@ -11,6 +11,11 @@
 
 enum class SpriteEnum{RED_SQUARE, GREEN_SQUARE, TEST_SHIP};
 
+/**
+ * Class responsible for everything graphics related.
+ * This includes loading images as Sprite objects, creating
+ * a game window and rendering to it, and more.
+ */
 class GraphicsManager : public GameUpdatedListener {
     public:
         /**

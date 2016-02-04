@@ -36,6 +36,7 @@ void GraphicsManager::initGraphics() {
         }
     }
 
+    // Temporary sprite testing - this will be removed later
     _spriteSheet = loadTexture("c:/testsheet.png");
     _texture = loadTexture("c:/testsheet.png");
     clip.x = 0;

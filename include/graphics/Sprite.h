@@ -3,6 +3,11 @@
 
 #include <SDL.h>
 
+/**
+ * This class represents sprites used in the game.
+ * It contains a pointer to a sprite sheet and a rectangle
+ * defining its position and size on the sprite sheet.
+ */
 class Sprite {
     public:
         /**

@@ -5,8 +5,10 @@
 #include <map>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <vector>
 #include "Constants.h"
 #include "GameUpdatedListener.h"
+#include "MapObject.h"
 #include "Sprite.h"
 
 enum class SpriteEnum{RED_SQUARE, GREEN_SQUARE, TEST_SHIP};
@@ -17,7 +19,13 @@ enum class SpriteEnum{RED_SQUARE, GREEN_SQUARE, TEST_SHIP};
  * a game window and rendering to it, and more.
  */
 class GraphicsManager : public GameUpdatedListener {
+
     public:
+        /**
+         * Constructor.
+         */
+        GraphicsManager(std::vector<MapObject*>* mapObjects);
+
         /**
          * Destructor.
          */
@@ -73,6 +81,11 @@ class GraphicsManager : public GameUpdatedListener {
          * @param spriteEnum - The SpriteEnum corresponding to the wanted Sprite.
          */
         Sprite* generateSprite(SpriteEnum spriteEnum);
+
+        /**
+         * A vector of all MapObjects in the game.
+         */
+        std::vector<MapObject*>* _mapObjects = nullptr;
 
 
 };

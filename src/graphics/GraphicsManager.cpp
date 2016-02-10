@@ -3,6 +3,9 @@
 #include "GraphicsManager.h"
 #include "Sprite.h"
 
+GraphicsManager::GraphicsManager(std::vector<MapObject*>* mapObjects) : _mapObjects(mapObjects) {
+}
+
 GraphicsManager::~GraphicsManager() {
     // Let SDL handle the memory deallocation
     SDL_DestroyWindow(_gameWindow);
@@ -68,10 +71,16 @@ SDL_Texture* GraphicsManager::loadTexture(std::string path) {
 void GraphicsManager::GameUpdated() {
     // Clear the screen
     SDL_RenderClear(_renderer);
-    // Render texture to screen
-    SDL_RenderCopy(_renderer, _spriteSheet, &clip, &clip);
-    // TEST SPRITE LOADING AND RENDERING
-    getSprite(SpriteEnum::TEST_SHIP)->draw(_renderer, 200, 32);
+
+    // Draw all MapObjects
+    // CURRENTLY UNOPTIMIZED - of course, it should only draw those within the
+    // borders of the screen. I will fix that once things start moving.
+    MapObject* temp;
+    for (int i = 0; i < _mapObjects->size(); ++i) {
+        temp = _mapObjects->at(i);
+        temp->draw(_renderer, temp->getX(), temp->getY());
+    }
+    temp = nullptr;
     // Update screen
     SDL_RenderPresent(_renderer);
 }

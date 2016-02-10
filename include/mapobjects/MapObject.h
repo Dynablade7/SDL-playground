@@ -1,6 +1,7 @@
 #ifndef MAPOBJECT_H
 #define MAPOBJECT_H
 
+#include <SDL.h>
 #include "Sprite.h"
 
 /**
@@ -10,13 +11,16 @@
  */
 class MapObject {
     public:
-        MapObject();
+        MapObject(int x, int y, Sprite* sprite);
         virtual ~MapObject();
         MapObject(const MapObject& other);
         MapObject& operator=(const MapObject& other);
+        void draw(SDL_Renderer* renderer, int x, int y);
+        int getX();
+        int getY();
     protected:
-        int x, y;
-        Sprite* sprite = nullptr;
+        int _x, _y;
+        Sprite* _sprite = nullptr;
 };
 
 #endif // MAPOBJECT_H

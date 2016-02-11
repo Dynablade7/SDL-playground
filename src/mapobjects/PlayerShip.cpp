@@ -1,6 +1,6 @@
 #include "PlayerShip.h"
 
-PlayerShip::PlayerShip(int x, int y, Sprite* Sprite) : MapObject(x, y, Sprite) {
+PlayerShip::PlayerShip(int x, int y, Sprite* sprite) : MapObject(x, y, sprite) {
     //ctor
 }
 

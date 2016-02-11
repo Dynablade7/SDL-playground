@@ -3,7 +3,9 @@
 
 #include <MapObject.h>
 
-
+/**
+ * The class containing the MapObject controlled by the player.
+ */
 class PlayerShip : public MapObject {
     public:
         PlayerShip(int x, int y, Sprite* sprite);

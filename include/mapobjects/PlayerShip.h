@@ -10,7 +10,6 @@ class PlayerShip : public MapObject {
     public:
         PlayerShip(int x, int y, Sprite* sprite);
         ~PlayerShip();
-    protected:
     private:
         double xVelocity = 0, yVelocity = 0;
         double direction = 0;

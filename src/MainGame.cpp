@@ -14,7 +14,12 @@ MainGame::~MainGame() {
     SDL_Quit();
     for (int i = 0; i < _mapObjects->size(); ++i) {
         delete _mapObjects->at(i);
+        _mapObjects->at(i) = nullptr;
     }
+    delete _graphicsManager;
+    _graphicsManager = nullptr;
+    delete _mapObjects;
+    _mapObjects = nullptr;
 }
 
 void MainGame::run() {
@@ -46,11 +51,12 @@ void MainGame::processInput() {
                 _gameState = GameState::EXIT;
                 break;
             case SDL_MOUSEMOTION:
+                // Print the position of the mouse any time it is moved.
                 std::cout << event.motion.x << " " << event.motion.y << std::endl;
                 break;
             case SDL_MOUSEBUTTONDOWN:
+                // Create a PlayerShip when clicking in the window.
                 PlayerShip* testShip = new PlayerShip(200, 200, _graphicsManager->getSprite(SpriteEnum::TEST_SHIP));
-                std::cout << "Yes" << std::endl;
                 _mapObjects->push_back(testShip);
 
         }

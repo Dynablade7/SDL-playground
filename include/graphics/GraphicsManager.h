@@ -23,6 +23,7 @@ class GraphicsManager : public GameUpdatedListener {
     public:
         /**
          * Constructor.
+         * @param mapObjects - A vector containing all MapObjects to be drawn.
          */
         GraphicsManager(std::vector<MapObject*>* mapObjects);
 
@@ -58,16 +59,13 @@ class GraphicsManager : public GameUpdatedListener {
         const int SCREEN_WIDTH = 768, SCREEN_HEIGHT = 480;
         SDL_Window* _gameWindow = nullptr;
         SDL_Renderer* _renderer = nullptr;
-        SDL_Texture* _mainTexture = nullptr;
         SDL_Texture* _spriteSheet = nullptr;
-        SDL_Texture* _texture = nullptr;
 
         /**
          * Loads an SDL_Texture from an imamge file and returns a pointer to it.
          * @param path - The path to the image file.
          */
         SDL_Texture* loadTexture(std::string path);
-        SDL_Rect clip;
 
         /**
          * A mapping of SpriteEnum to Sprite objects. Used when accessing sprites.

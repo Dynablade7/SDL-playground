@@ -12,6 +12,7 @@ MainGame::MainGame() {
 
 MainGame::~MainGame() {
     SDL_Quit();
+    // Deallocate all MapObjects
     for (int i = 0; i < _mapObjects->size(); ++i) {
         delete _mapObjects->at(i);
         _mapObjects->at(i) = nullptr;

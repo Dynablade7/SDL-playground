@@ -3,6 +3,7 @@
 #include "GraphicsManager.h"
 #include "Sprite.h"
 
+
 GraphicsManager::GraphicsManager(std::vector<MapObject*>* mapObjects) : _mapObjects(mapObjects) {
 }
 
@@ -14,6 +15,7 @@ GraphicsManager::~GraphicsManager() {
     // Deallocate all dynamically allocated Sprite objects
     for (auto iter = spriteMap.begin(); iter != spriteMap.end(); ++iter) {
         delete iter->second;
+        iter->second = nullptr;
     }
 }
 
@@ -28,18 +30,18 @@ void GraphicsManager::initGraphics() {
         if (_renderer == nullptr) {
             printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
         } else {
-            //Initialize renderer color
+            // Initialize renderer color
             SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x00, 0xFF);
-
-            //Initialize PNG loading
+            // Initialize PNG loading
             int imgFlags = IMG_INIT_PNG;
-            if(!( IMG_Init(imgFlags) & imgFlags)) {
+            if(!(IMG_Init(imgFlags) & imgFlags)) {
                 printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
             }
         }
     }
 
-    // Temporary sprite testing - this will be removed later
+    // At this point there is only one sprite sheet. If more are
+    // added in the future, this should be done in a more elegant manner.
     _spriteSheet = loadTexture("c:/testsheet.png");
 }
 
@@ -71,7 +73,7 @@ void GraphicsManager::GameUpdated() {
     // CURRENTLY UNOPTIMIZED - of course, it should only draw those within the
     // borders of the screen. I will fix that once things start moving.
     MapObject* temp;
-    for (int i = 0; i < _mapObjects->size(); ++i) {
+    for (unsigned int i = 0; i < _mapObjects->size(); ++i) {
         temp = _mapObjects->at(i);
         temp->draw(_renderer, temp->getX(), temp->getY());
     }
@@ -84,39 +86,9 @@ Sprite* GraphicsManager::getSprite(SpriteEnum spriteEnum) {
     if (spriteMap.find(spriteEnum) != spriteMap.end()) {
         return spriteMap[spriteEnum];
     } else {
-        Sprite* sprite = generateSprite(spriteEnum);
+        Sprite* sprite = generateSprite(spriteEnum, _spriteSheet);
         spriteMap[spriteEnum] = sprite;
         return sprite;
     }
 }
 
-Sprite* GraphicsManager::generateSprite(SpriteEnum spriteEnum) {
-    // A local SDL_Rect that represents the position and size of the wanted sprite.
-    SDL_Rect lclip;
-    // There will be a lot of cases here if this project grows. In that case I should probably
-    // move these constant values to a separate file or similar.
-    switch(spriteEnum) {
-    case SpriteEnum::GREEN_SQUARE:
-        lclip.x = 32;
-        lclip.y = 0;
-        lclip.w = 32;
-        lclip.h = 32;
-        break;
-    case SpriteEnum::RED_SQUARE:
-        lclip.x = 0;
-        lclip.y = 0;
-        lclip.w = 32;
-        lclip.h = 32;
-        break;
-    case SpriteEnum::TEST_SHIP:
-        lclip.x = 64;
-        lclip.y = 0;
-        lclip.w = 32;
-        lclip.h = 32;
-        break;
-    default:
-        printf("Issue generating sprite - specified Sprite is not defined!");
-        return nullptr;
-    }
-    return new Sprite(_spriteSheet, lclip);
-}

@@ -6,12 +6,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
-#include "Constants.h"
 #include "GameUpdatedListener.h"
 #include "MapObject.h"
 #include "Sprite.h"
-
-enum class SpriteEnum{RED_SQUARE, GREEN_SQUARE, TEST_SHIP};
+#include "SpriteSpecs.h"
 
 /**
  * Class responsible for everything graphics related.
@@ -23,7 +21,7 @@ class GraphicsManager : public GameUpdatedListener {
     public:
         /**
          * Constructor.
-         * @param mapObjects - A vector containing all MapObjects to be drawn.
+         * @param mapObjects - A pointer to a vector containing all MapObjects to be drawn.
          */
         GraphicsManager(std::vector<MapObject*>* mapObjects);
 
@@ -71,14 +69,6 @@ class GraphicsManager : public GameUpdatedListener {
          * A mapping of SpriteEnum to Sprite objects. Used when accessing sprites.
          */
         std::map<SpriteEnum, Sprite*> spriteMap;
-
-        /**
-         * Generates a Sprite depending on what SriteEnum is given as argument.
-         * If a Sprite for that SpriteEnum is not yet defined in the method, a warning will be
-         * printed and nullptr will be returned.
-         * @param spriteEnum - The SpriteEnum corresponding to the wanted Sprite.
-         */
-        Sprite* generateSprite(SpriteEnum spriteEnum);
 
         /**
          * A vector of all MapObjects in the game.

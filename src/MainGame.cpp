@@ -8,6 +8,7 @@ MainGame::MainGame() {
     _gameState = GameState::PLAY;
     _mapObjects = new std::vector<MapObject*>();
     _graphicsManager = new GraphicsManager(_mapObjects);
+
 }
 
 MainGame::~MainGame() {
@@ -35,6 +36,9 @@ void MainGame::initSystems() {
     _graphicsManager->initGraphics();
     // Add listeners to vector for them to notified when the game is updated.
     gameUpdatedListeners.push_back(_graphicsManager);
+    // Create the player ship
+    _playerShip = new PlayerShip(_graphicsManager->getSprite(SpriteEnum::TEST_SHIP));
+    _mapObjects->push_back(_playerShip);
 }
 
 void MainGame::gameLoop() {
@@ -46,21 +50,17 @@ void MainGame::gameLoop() {
 
 void MainGame::processInput() {
     SDL_Event event;
-    while(SDL_PollEvent(&event)) {
-        switch(event.type) {
-            case SDL_QUIT:
-                _gameState = GameState::EXIT;
-                break;
-            case SDL_MOUSEMOTION:
-                // Print the position of the mouse any time it is moved.
-                std::cout << event.motion.x << " " << event.motion.y << std::endl;
-                break;
-            case SDL_MOUSEBUTTONDOWN:
-                // Create a PlayerShip when clicking in the window.
-                PlayerShip* testShip = new PlayerShip(200, 200, _graphicsManager->getSprite(SpriteEnum::TEST_SHIP));
-                _mapObjects->push_back(testShip);
-
+    while(SDL_PollEvent(&event) != 0) {
+        // Has the user requested to quit the game?
+        if (event.type == SDL_QUIT) {
+            _gameState = GameState::EXIT;
+            break;
+        }if (_playerShip != nullptr) {
+            _playerShip->processInput(event);
         }
+    }
+    if (_playerShip != nullptr) {
+        _playerShip->processInput(event);
     }
 }
 

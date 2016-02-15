@@ -6,6 +6,7 @@
 #include <vector>
 #include "GraphicsManager.h"
 #include "MapObject.h"
+#include "PlayerShip.h"
 #include "Sprite.h"
 
 
@@ -66,6 +67,8 @@ class MainGame {
          * A vector of all MapObjects in the game.
          */
         std::vector<MapObject*>* _mapObjects = nullptr;
+
+        PlayerShip* _playerShip = nullptr;
 };
 
 #endif // MAINGAME_H

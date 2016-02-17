@@ -34,10 +34,30 @@ class PlayerShip : public MapObject {
          * such as mouse clicks or unimplemented key presses, are ignored.
          */
         void processInput(SDL_Event& e);
+
+        /**
+         * Changes the PlayerShip's position based on its current _xVel and _yVel values.
+         */
+        void move();
+
     private:
-        double _xVelocity = 5, _yVelocity = 5;
-        double _direction = 0;
+
+        /**
+         * The horizontal and vertical velocity of the PlayerShip, respectively.
+         */
+        double _xVel, _yVel;
+
+        /**
+         * Constants declaring the default position of the PlayerShip.
+         * If no position is specified in the constructor, these will be used.
+         */
         const int START_POS_X = 32, START_POS_Y = 32;
+
+        /**
+         * A constant that determines the velocity of the PlayerShip.
+         * Basically, _xVel and _yVel are set to this value when an arrow key is pressed.
+         */
+        const int VEL_CONST = 1;
 };
 
 #endif // PLAYERSHIP_H

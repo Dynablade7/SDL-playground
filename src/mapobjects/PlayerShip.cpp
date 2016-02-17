@@ -11,12 +11,26 @@ PlayerShip::~PlayerShip() {
 }
 
 void PlayerShip::processInput(SDL_Event& e) {
+    // Check for pressed keys
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
         switch (e.key.keysym.sym) {
-            case SDLK_UP: _y -= _yVelocity; break;
-            case SDLK_DOWN: _y += _yVelocity; break;
-            case SDLK_LEFT: _x -= _xVelocity; break;
-            case SDLK_RIGHT: _x += _xVelocity; break;
+            case SDLK_UP: _yVel -= VEL_CONST; break;
+            case SDLK_DOWN: _yVel += VEL_CONST; break;
+            case SDLK_LEFT: _xVel -= VEL_CONST; break;
+            case SDLK_RIGHT: _xVel += VEL_CONST; break;
+        }
+    // Check for released keys, reset values
+    } else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
+        switch (e.key.keysym.sym) {
+            case SDLK_UP: _yVel += VEL_CONST; break;
+            case SDLK_DOWN: _yVel -= VEL_CONST; break;
+            case SDLK_LEFT: _xVel += VEL_CONST; break;
+            case SDLK_RIGHT: _xVel -= VEL_CONST; break;
         }
     }
+}
+
+void PlayerShip::move() {
+    _x += _xVel;
+    _y += _yVel;
 }

@@ -44,6 +44,7 @@ void MainGame::gameLoop() {
     while (_gameState != GameState::EXIT) {
         processInput();
         notifyGameUpdatedListeners();
+        _playerShip->move();
     }
 }
 

@@ -8,7 +8,6 @@ MainGame::MainGame() {
     _gameState = GameState::PLAY;
     _mapObjects = new std::vector<MapObject*>();
     _graphicsManager = new GraphicsManager(_mapObjects);
-
 }
 
 MainGame::~MainGame() {
@@ -51,14 +50,13 @@ void MainGame::gameLoop() {
 void MainGame::processInput() {
     SDL_Event event;
     while(SDL_PollEvent(&event) != 0) {
-        // Has the user requested to quit the game?
+        // If user requests to quit the game
         if (event.type == SDL_QUIT) {
             _gameState = GameState::EXIT;
             break;
-        }if (_playerShip != nullptr) {
-            _playerShip->processInput(event);
         }
     }
+    // Process player input
     if (_playerShip != nullptr) {
         _playerShip->processInput(event);
     }

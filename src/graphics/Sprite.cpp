@@ -7,7 +7,8 @@ Sprite::Sprite(SDL_Texture* spriteSheet, SDL_Rect clip) {
     _clip = clip;
 }
 
-void Sprite::draw(SDL_Renderer* renderer, int x, int y) {
+void Sprite::draw(SDL_Renderer* renderer, int x, int y, double angle, SDL_Point* center,
+                  SDL_RendererFlip flip) {
     /* The rectangle that defines the position and size the sprite will have
     when drawn to the screen. In this function, the size will be the same
     as the sprite is on the sprite sheet. */
@@ -17,5 +18,7 @@ void Sprite::draw(SDL_Renderer* renderer, int x, int y) {
     destination.w = _clip.w;
     destination.h = _clip.h;
     // Render sprite
-    SDL_RenderCopy(renderer, _spriteSheet, &_clip, &destination);
+    SDL_RenderCopyEx(renderer, _spriteSheet, &_clip, &destination, angle, center, flip);
 }
+
+

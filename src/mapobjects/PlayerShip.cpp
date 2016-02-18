@@ -1,4 +1,5 @@
 #include "PlayerShip.h"
+#include <stdio.h>
 
 PlayerShip::PlayerShip(Sprite* sprite) : MapObject(START_POS_X, START_POS_Y, sprite) {
 }
@@ -34,3 +35,4 @@ void PlayerShip::move() {
     _x += _xVel;
     _y += _yVel;
 }
+

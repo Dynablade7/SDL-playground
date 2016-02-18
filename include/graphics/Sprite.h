@@ -24,8 +24,12 @@ class Sprite {
          * @param renderer - The renderer that the sprite is rendered to.
          * @param x - The x position of the game window that the sprite will be rendered to.
          * @param y - The y position of the game window that the sprite will be rendered to.
+         * @param angle - The number of degrees the sprite will be rotated from its original position.
+         * @param center - The point specifying the center of rotation.
+         * @param flip - Enum specifying if and how the sprite is flipped.
          */
-        void draw(SDL_Renderer* renderer, int x, int y);
+        void draw(SDL_Renderer* renderer, int x, int y, double angle = 0.0, SDL_Point* center = nullptr,
+                  SDL_RendererFlip flip = SDL_FLIP_NONE);
     private:
 
         /**

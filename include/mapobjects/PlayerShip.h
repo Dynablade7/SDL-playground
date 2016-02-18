@@ -40,6 +40,7 @@ class PlayerShip : public MapObject {
          */
         void move();
 
+
     private:
 
         /**

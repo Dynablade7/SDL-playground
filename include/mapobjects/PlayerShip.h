@@ -2,7 +2,7 @@
 #define PLAYERSHIP_H
 
 #include <MapObject.h>
-#include <SDL.h>
+#include "SDL.h"
 
 /**
  * The class containing the MapObject controlled by the player.

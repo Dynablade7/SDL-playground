@@ -57,7 +57,7 @@ void MainGame::processInput() {
             break;
         }
     }
-    // Process player input
+    // Process user input
     if (_playerShip != nullptr) {
         _playerShip->processInput(event);
     }

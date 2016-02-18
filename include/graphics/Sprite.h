@@ -1,7 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include <SDL.h>
+#include "SDL.h"
 
 /**
  * This class represents sprites used in the game.
@@ -10,6 +10,7 @@
  */
 class Sprite {
     public:
+
         /**
          * Constructor.
          * @param spriteSheet - The texture from which the sprite is rendered.
@@ -26,6 +27,7 @@ class Sprite {
          */
         void draw(SDL_Renderer* renderer, int x, int y);
     private:
+
         /**
          * The texture from which the sprite is rendered.
          */

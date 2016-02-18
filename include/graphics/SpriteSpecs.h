@@ -2,7 +2,7 @@
 #define SPRITESPECS_H_INCLUDED
 
 #include <iostream>
-#include <SDL.h>
+#include "SDL.h"
 #include "Sprite.h"
 
 

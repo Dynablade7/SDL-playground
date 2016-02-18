@@ -2,14 +2,13 @@
 #define MAINGAME_H
 
 #include <iostream>
-#include <SDL.h>
 #include <vector>
 #include "GraphicsManager.h"
 #include "MapObject.h"
 #include "PlayerShip.h"
+#include "SDL.h"
 #include "Sprite.h"
-
-
+#include "Timer.h"
 
 // The possible states of the game. Might use a separate state machine later.
 enum class GameState {PLAY, EXIT};
@@ -68,7 +67,16 @@ class MainGame {
          */
         std::vector<MapObject*>* _mapObjects = nullptr;
 
+        /**
+         * The user-controlled MapObject.
+         */
         PlayerShip* _playerShip = nullptr;
+
+        /**
+         * A timer used to keep track of and cap frames per seconds.
+         */
+        Timer fpsTimer;
+        int countedFrames = 0;
 };
 
 #endif // MAINGAME_H

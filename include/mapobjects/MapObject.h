@@ -20,7 +20,6 @@ class MapObject {
          * @param renderer - The SDL_Renderer to which the sprite is drawn
          * @param x - The x position to which the sprite is drawn
          * @param y - The y position to which the sprite is drawn
-         * @param angle - The number of degrees the sprite will be rotated from its original position.
          * @param center - The point specifying the center of rotation.
          * @param flip - Enum specifying if and how the sprite is flipped.
          */

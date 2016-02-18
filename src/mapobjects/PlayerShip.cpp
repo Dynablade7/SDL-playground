@@ -8,7 +8,6 @@ PlayerShip::PlayerShip(int x, int y, Sprite* sprite) : MapObject(x, y, sprite) {
 }
 
 PlayerShip::~PlayerShip() {
-    //dtor
 }
 
 void PlayerShip::processInput(SDL_Event& e) {

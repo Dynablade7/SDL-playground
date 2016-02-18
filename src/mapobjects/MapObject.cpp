@@ -10,8 +10,7 @@ MapObject::MapObject(const MapObject& other) {
 }
 
 MapObject& MapObject::operator=(const MapObject& rhs) {
-    if (this == &rhs) return *this; // handle self assignment
-    //assignment operator
+    if (this == &rhs) return *this;
     return *this;
 }
 

@@ -41,10 +41,19 @@ void MainGame::initSystems() {
 }
 
 void MainGame::gameLoop() {
+    // Timer used to calculate fps
+    Timer fpsTimer;
+    // Integer for keeping track of how many frames have been rendered so far
+    int countedFrames = 0;
+    fpsTimer.start();
     while (_gameState != GameState::EXIT) {
+        // Calculate and print current avarage fps
+        int avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+        std::cout << avgFPS << std::endl;
         processInput();
         notifyGameUpdatedListeners();
         _playerShip->move();
+        ++countedFrames;
     }
 }
 

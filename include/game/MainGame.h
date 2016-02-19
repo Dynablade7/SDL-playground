@@ -71,12 +71,6 @@ class MainGame {
          * The user-controlled MapObject.
          */
         PlayerShip* _playerShip = nullptr;
-
-        /**
-         * A timer used to keep track of and cap frames per seconds.
-         */
-        Timer fpsTimer;
-        int countedFrames = 0;
 };
 
 #endif // MAINGAME_H

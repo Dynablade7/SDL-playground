@@ -25,8 +25,8 @@ void GraphicsManager::initGraphics() {
     if(_gameWindow == nullptr)  {
         printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
     } else {
-        //Create renderer for window
-        _renderer = SDL_CreateRenderer(_gameWindow, -1, SDL_RENDERER_ACCELERATED);
+        // Create renderer for window
+        _renderer = SDL_CreateRenderer(_gameWindow, -1, SDL_RENDERER_PRESENTVSYNC);
         if (_renderer == nullptr) {
             printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
         } else {

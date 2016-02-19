@@ -18,6 +18,8 @@ void PlayerShip::processInput(SDL_Event& e) {
             case SDLK_DOWN: _yVel += VEL_CONST; break;
             case SDLK_LEFT: _xVel -= VEL_CONST; break;
             case SDLK_RIGHT: _xVel += VEL_CONST; break;
+            case SDLK_BACKSPACE: direction += 1; break;
+            case SDLK_d: direction -= 1; break;
         }
     // Check for released keys, reset values
     } else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
@@ -26,6 +28,8 @@ void PlayerShip::processInput(SDL_Event& e) {
             case SDLK_DOWN: _yVel -= VEL_CONST; break;
             case SDLK_LEFT: _xVel += VEL_CONST; break;
             case SDLK_RIGHT: _xVel -= VEL_CONST; break;
+            case SDLK_BACKSPACE: direction -= 1; break;
+            case SDLK_d: direction += 1; break;
         }
     }
 }
@@ -33,5 +37,6 @@ void PlayerShip::processInput(SDL_Event& e) {
 void PlayerShip::move() {
     _x += _xVel;
     _y += _yVel;
+    angle += direction;
 }
 

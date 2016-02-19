@@ -47,6 +47,7 @@ class PlayerShip : public MapObject {
          * The horizontal and vertical velocity of the PlayerShip, respectively.
          */
         double _xVel, _yVel;
+        double direction = 0;
 
         /**
          * Constants declaring the default position of the PlayerShip.

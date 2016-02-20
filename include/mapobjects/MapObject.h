@@ -10,6 +10,7 @@
  */
 class MapObject {
     public:
+
         MapObject(int x, int y, Sprite* sprite);
         virtual ~MapObject();
         MapObject(const MapObject& other);
@@ -28,6 +29,7 @@ class MapObject {
         double getX();
         double getY();
     protected:
+
         double _x, _y;
 
         /**
@@ -35,6 +37,10 @@ class MapObject {
          * when drawn, relative to its starting position.
          */
         double angle;
+
+        /**
+         * The sprite belonging to the MapObject.
+         */
         Sprite* _sprite = nullptr;
 };
 

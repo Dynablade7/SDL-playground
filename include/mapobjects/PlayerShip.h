@@ -52,6 +52,8 @@ class PlayerShip : public MapObject {
         /**
          * Constants declaring the default position of the PlayerShip.
          * If no position is specified in the constructor, these will be used.
+         * NOTE: Are these not initialized when the constructor is called?
+         * The ship spawns at (0,0) regardless of their value right now
          */
         const int START_POS_X = 320, START_POS_Y = 32;
 

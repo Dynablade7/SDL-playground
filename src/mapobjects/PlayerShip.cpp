@@ -5,7 +5,9 @@
 #define PI 3.14159265
 #define radianConstant PI / 180 // To convert degrees to radians
 
-
+/* There seem to be some issues with this initialization. Are START_POS_X and Y set
+   to 0 when the constructor is called or something? Haven't they been initialized properly yet?
+   The ship spawns at (0,0) regardless of their value. */
 PlayerShip::PlayerShip(Sprite* sprite) : MapObject(START_POS_X, START_POS_Y, sprite) {
 }
 

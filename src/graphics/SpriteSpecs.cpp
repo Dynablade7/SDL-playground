@@ -20,8 +20,8 @@ Sprite* generateSprite(SpriteEnum spriteEnum, SDL_Texture* spriteSheet) {
     case SpriteEnum::TEST_SHIP:
         clip.x = 64;
         clip.y = 0;
-        clip.w = 32;
-        clip.h = 32;
+        clip.w = 21;
+        clip.h = 20;
         break;
     default:
         printf("Issue generating sprite - specified Sprite is not defined!");

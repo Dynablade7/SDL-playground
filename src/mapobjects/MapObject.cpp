@@ -22,10 +22,10 @@ void MapObject::draw(SDL_Renderer* renderer, int x, int y, SDL_Point* center,
     }
 }
 
-int MapObject::getX() {
+double MapObject::getX() {
     return _x;
 }
 
-int MapObject::getY() {
+double MapObject::getY() {
     return _y;
 }

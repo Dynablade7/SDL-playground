@@ -49,7 +49,7 @@ void MainGame::gameLoop() {
     while (_gameState != GameState::EXIT) {
         // Calculate and print current avarage fps
         int avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
-        std::cout << avgFPS << std::endl;
+        //std::cout << avgFPS << std::endl;
         processInput();
         notifyGameUpdatedListeners();
         _playerShip->move();

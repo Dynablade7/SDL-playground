@@ -25,10 +25,10 @@ class MapObject {
          */
         void draw(SDL_Renderer* renderer, int x, int y, SDL_Point* center = nullptr,
                   SDL_RendererFlip flip = SDL_FLIP_NONE);
-        int getX();
-        int getY();
+        double getX();
+        double getY();
     protected:
-        int _x, _y;
+        double _x, _y;
 
         /**
          * The angle (number of degrees) that the MapObject's sprite will be rotated to

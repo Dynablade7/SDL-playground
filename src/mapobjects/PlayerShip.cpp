@@ -1,5 +1,10 @@
 #include "PlayerShip.h"
+#include <cmath>
 #include <stdio.h>
+
+#define PI 3.14159265
+#define radianConstant PI / 180 // To convert degrees to radians
+
 
 PlayerShip::PlayerShip(Sprite* sprite) : MapObject(START_POS_X, START_POS_Y, sprite) {
 }
@@ -11,32 +16,26 @@ PlayerShip::~PlayerShip() {
 }
 
 void PlayerShip::processInput(SDL_Event& e) {
-    // Check for pressed keys
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
-        switch (e.key.keysym.sym) {
-            case SDLK_UP: _yVel -= VEL_CONST; break;
-            case SDLK_DOWN: _yVel += VEL_CONST; break;
-            case SDLK_LEFT: _xVel -= VEL_CONST; break;
-            case SDLK_RIGHT: _xVel += VEL_CONST; break;
-            case SDLK_BACKSPACE: direction += 1; break;
-            case SDLK_d: direction -= 1; break;
-        }
-    // Check for released keys, reset values
-    } else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
-        switch (e.key.keysym.sym) {
-            case SDLK_UP: _yVel += VEL_CONST; break;
-            case SDLK_DOWN: _yVel -= VEL_CONST; break;
-            case SDLK_LEFT: _xVel += VEL_CONST; break;
-            case SDLK_RIGHT: _xVel -= VEL_CONST; break;
-            case SDLK_BACKSPACE: direction -= 1; break;
-            case SDLK_d: direction += 1; break;
-        }
+    const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
+    if (currentKeyStates[SDL_SCANCODE_W]) {
+        // Calculate velocity based on current angle of PlayerShip (converted from degrees to radians)
+        _yVel = SPEED_CONST * cos(angle * radianConstant);
+        _xVel = SPEED_CONST * sin(angle * radianConstant);
+    } else {
+        _xVel = 0;
+        _yVel = 0;
+    }
+    if (currentKeyStates[SDL_SCANCODE_D]) {
+        _direction += TURN_CONST;
+    }
+    if (currentKeyStates[SDL_SCANCODE_A]) {
+        _direction -= TURN_CONST;
     }
 }
 
 void PlayerShip::move() {
     _x += _xVel;
-    _y += _yVel;
-    angle += direction;
+    _y -= _yVel;
+    angle = _direction;
 }
 

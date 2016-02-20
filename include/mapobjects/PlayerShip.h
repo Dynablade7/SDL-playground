@@ -47,19 +47,24 @@ class PlayerShip : public MapObject {
          * The horizontal and vertical velocity of the PlayerShip, respectively.
          */
         double _xVel, _yVel;
-        double direction = 0;
+        double _direction;
 
         /**
          * Constants declaring the default position of the PlayerShip.
          * If no position is specified in the constructor, these will be used.
          */
-        const int START_POS_X = 32, START_POS_Y = 32;
+        const int START_POS_X = 320, START_POS_Y = 32;
 
         /**
-         * A constant that determines the velocity of the PlayerShip.
-         * Basically, _xVel and _yVel are set to this value when an arrow key is pressed.
+         * A constant that determines the speed of the PlayerShip.
          */
-        const int VEL_CONST = 1;
+        const int SPEED_CONST = 3;
+
+        /**
+         * A constant that determines how fast the PlayerShip will turn.
+         * In practice it is the number of degrees the ship will turn per tick.
+         */
+        const int TURN_CONST = 5;
 };
 
 #endif // PLAYERSHIP_H

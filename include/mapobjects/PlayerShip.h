@@ -60,7 +60,7 @@ class PlayerShip : public MapObject {
         /**
          * A constant that determines the speed of the PlayerShip.
          */
-        const int SPEED_CONST = 3;
+        const int SPEED_CONST = 5;
 
         /**
          * A constant that determines how fast the PlayerShip will turn.

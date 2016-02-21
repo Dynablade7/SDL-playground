@@ -30,8 +30,6 @@ class PlayerShip : public MapObject {
          * This function processes keyboard input and acts accordingly.
          * For instance, it sets _xVelocity and _yVelocity values if arrow keys
          * are pressed.
-         * @param e - A reference to the SDL_Event that occured. Unrelevant events,
-         * such as mouse clicks or unimplemented key presses, are ignored.
          */
         void processInput();
 

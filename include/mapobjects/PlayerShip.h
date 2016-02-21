@@ -27,9 +27,8 @@ class PlayerShip : public MapObject {
         ~PlayerShip();
 
         /**
-         * This function processes keyboard input and acts accordingly.
-         * For instance, it sets _xVelocity and _yVelocity values if arrow keys
-         * are pressed.
+         * This method processes keyboard input using SDL_SCANCODE and acts accordingly.
+         * For instance, it accelerates the PlayerShip if the W key is pressed.
          */
         void processInput();
 

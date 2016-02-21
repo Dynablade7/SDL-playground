@@ -48,8 +48,8 @@ void MainGame::gameLoop() {
     fpsTimer.start();
     while (_gameState != GameState::EXIT) {
         // Calculate and print current avarage fps
-        int avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
-        //std::cout << avgFPS << std::endl;
+        // int avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+        // std::cout << avgFPS << std::endl;
         processInput();
         notifyGameUpdatedListeners();
         _playerShip->move();
@@ -63,12 +63,12 @@ void MainGame::processInput() {
         // If user requests to quit the game
         if (event.type == SDL_QUIT) {
             _gameState = GameState::EXIT;
-            break;
+            return;
         }
     }
     // Process user input
     if (_playerShip != nullptr) {
-        _playerShip->processInput(event);
+        _playerShip->processInput();
     }
 }
 

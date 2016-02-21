@@ -18,7 +18,7 @@ void MapObject::draw(SDL_Renderer* renderer, int x, int y, SDL_Point* center,
                      SDL_RendererFlip flip) {
     // Draw the MapObject's sprite to the screen.
     if (_sprite != nullptr) {
-        _sprite->draw(renderer, x, y, angle, center, flip);
+        _sprite->draw(renderer, x, y, _angle, center, flip);
     }
 }
 

@@ -36,7 +36,7 @@ class MapObject {
          * The angle (number of degrees) that the MapObject's sprite will be rotated to
          * when drawn, relative to its starting position.
          */
-        double angle;
+        double _angle;
 
         /**
          * The sprite belonging to the MapObject.

@@ -17,27 +17,35 @@ PlayerShip::PlayerShip(int x, int y, Sprite* sprite) : MapObject(x, y, sprite) {
 PlayerShip::~PlayerShip() {
 }
 
-void PlayerShip::processInput(SDL_Event& e) {
+void PlayerShip::processInput() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
     if (currentKeyStates[SDL_SCANCODE_W]) {
         // Calculate velocity based on current angle of PlayerShip (converted from degrees to radians)
-        _yVel = SPEED_CONST * cos(angle * radianConstant);
-        _xVel = SPEED_CONST * sin(angle * radianConstant);
-    } else {
-        _xVel = 0;
-        _yVel = 0;
+        applyForce(SPEED_CONST, _angle);
+    }
+    // Left thruster - accelerate to the right
+    if (currentKeyStates[SDL_SCANCODE_L]) {
+        applyForce(SPEED_CONST / 2, _angle + 90);
+    }
+    // Right thruster - accelerate to the left
+    if (currentKeyStates[SDL_SCANCODE_K]) {
+        applyForce(SPEED_CONST / 2, _angle - 90);
     }
     if (currentKeyStates[SDL_SCANCODE_D]) {
-        _direction += TURN_CONST;
+        _angle += TURN_CONST;
     }
     if (currentKeyStates[SDL_SCANCODE_A]) {
-        _direction -= TURN_CONST;
+        _angle -= TURN_CONST;
     }
 }
 
 void PlayerShip::move() {
     _x += _xVel;
     _y -= _yVel;
-    angle = _direction;
+}
+
+void PlayerShip::applyForce(double force, double direction) {
+    _yVel += force * cos(direction * radianConstant);
+    _xVel += force * sin(direction * radianConstant);
 }
 

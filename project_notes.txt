@@ -1,0 +1,3 @@
+- Use an EnvironmentData object that each MapObject has a pointer to, maybe? They need to be aware of their surroundings, after all, especially when it comes to stuff like movement.
+
+- Check collisions using quad-tree?

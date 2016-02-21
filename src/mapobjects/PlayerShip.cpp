@@ -31,9 +31,11 @@ void PlayerShip::processInput() {
     if (currentKeyStates[SDL_SCANCODE_K]) {
         applyForce(SPEED_CONST / 2, _angle - 90);
     }
+    // Turn ship to the right
     if (currentKeyStates[SDL_SCANCODE_D]) {
         _angle += TURN_CONST;
     }
+    // Turn ship to the right
     if (currentKeyStates[SDL_SCANCODE_A]) {
         _angle -= TURN_CONST;
     }

@@ -1,7 +1,8 @@
 #ifndef PLAYERSHIP_H
 #define PLAYERSHIP_H
 
-#include <MapObject.h>
+#include "MapObject.h"
+#include "GraphicsManager.h"
 #include "SDL.h"
 
 /**
@@ -24,6 +25,17 @@ class PlayerShip : public MapObject {
          * @param sprite - A pointer to the sprite of the PlayerShip
          */
         PlayerShip(int x, int y, Sprite* sprite);
+
+        /**
+         * Constructor. Creates a PlayerShip object on the specified position.
+         * @param x - The x position where the object will be created
+         * @param y - The y position where the object will be created
+         * @param graphicsManager - A pointer to the game's GraphicsManager object.
+         * In the constructor it is used to get the default sprite for this object.
+         * Creating a MapObject with this approach assumes that each object knows
+         * on beforehand which sprite it should be using.
+         */
+         PlayerShip(int x, int y, GraphicsManager* graphicsManager);
         ~PlayerShip();
 
         /**

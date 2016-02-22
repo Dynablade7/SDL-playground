@@ -36,7 +36,8 @@ void MainGame::initSystems() {
     // Add listeners to vector for them to notified when the game is updated.
     gameUpdatedListeners.push_back(_graphicsManager);
     // Create the player ship
-    _playerShip = new PlayerShip(_graphicsManager->getSprite(SpriteEnum::TEST_SHIP));
+    //_playerShip = new PlayerShip(_graphicsManager->getSprite(SpriteEnum::TEST_SHIP));
+    _playerShip = new PlayerShip(32, 32, _graphicsManager);
     _mapObjects->push_back(_playerShip);
 }
 

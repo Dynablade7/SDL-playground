@@ -14,6 +14,10 @@ PlayerShip::PlayerShip(Sprite* sprite) : MapObject(START_POS_X, START_POS_Y, spr
 PlayerShip::PlayerShip(int x, int y, Sprite* sprite) : MapObject(x, y, sprite) {
 }
 
+PlayerShip::PlayerShip(int x, int y, GraphicsManager* graphicsManager) :
+    MapObject(x, y, graphicsManager->getSprite(SpriteEnum::TEST_SHIP)) {
+}
+
 PlayerShip::~PlayerShip() {
 }
 

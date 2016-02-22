@@ -1,3 +1,5 @@
 - Use an EnvironmentData object that each MapObject has a pointer to, maybe? They need to be aware of their surroundings, after all, especially when it comes to stuff like movement.
 
 - Check collisions using quad-tree?
+
+- Use something similar to the State pattern to handle different weapons/abilities for the different ships' different parts. A nice, general solution. And different. (lol)

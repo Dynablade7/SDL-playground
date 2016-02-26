@@ -32,6 +32,7 @@
 */
 
 #include "sdl_extensions/SDL_collide.h"
+#include <iostream>
 
 /*if this header is not supported on your system comment out
 the assert function call in SDL_TransparentPixel*/
@@ -82,7 +83,8 @@ int SDL_CollideTransparentPixel(SDL_Surface *surface , int u , int v)
 	if(SDL_MUSTLOCK(surface))
 		SDL_UnlockSurface(surface);
 	/*test whether pixels color == color of transparent pixels for that surface*/
-	// return (pixelcolor == surface->format->colorkey); // Changed this!
+	//return (pixelcolor == surface->format->colorkey);
+	std::cout << "Warning - bug in SDL_CollideTransparentPixel makes it unusable" << std::endl;
 	return -1;
 }
 

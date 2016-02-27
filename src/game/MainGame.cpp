@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "PlayerShip.h"
+#include "sdl_extensions/SDL_collide.h"
 #include "SDL_image.h"
 
 MainGame::MainGame() {
@@ -47,6 +48,12 @@ void MainGame::gameLoop() {
     // Integer for keeping track of how many frames have been rendered so far
     int countedFrames = 0;
     fpsTimer.start();
+    // ------- VERIFYING COLLISION FUNCTION ------
+    SDL_Rect rect1 = {0, 0, 2, 5};
+    SDL_Rect rect2 = {0, 0, 32, 32};
+    std::cout << SDL_CollideBoundingBoxAngled(rect1, 180, rect2, 180) << std::endl;
+    std::cout << SDL_CollideBoundingBox(rect1, rect2) << std::endl;
+    // -------------------------------------------
     while (_gameState != GameState::EXIT) {
         // Calculate and print current avarage fps
         // int avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);

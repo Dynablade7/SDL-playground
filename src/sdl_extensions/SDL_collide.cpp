@@ -33,6 +33,7 @@
 
 #include "sdl_extensions/SDL_collide.h"
 #include <iostream>
+#include <cmath>
 
 /*if this header is not supported on your system comment out
 the assert function call in SDL_TransparentPixel*/
@@ -41,6 +42,9 @@ the assert function call in SDL_TransparentPixel*/
 /*returns maximum or minimum of number*/
 #define SDL_COLLIDE_MAX(a,b)	((a > b) ? a : b)
 #define SDL_COLLIDE_MIN(a,b)	((a < b) ? a : b)
+
+#define PI 3.14159265
+#define radianConstant PI / 180 // To convert degrees to radians
 
 /*
 	SDL surface test if offset (u,v) is a transparent pixel
@@ -184,6 +188,33 @@ int SDL_CollideBoundingBox(SDL_Rect a , SDL_Rect b)
 
 	if(b.y + b.h < a.y)	return 0;
 	if(b.y > a.y + a.h)	return 0;
+
+	return 1;				//bounding boxes intersect
+}
+
+bool SDL_CollideBoundingBoxAngled(SDL_Rect a, double angleA, SDL_Rect b, double angleB) {
+    std::cout << "Width a: " << a.w * cos(angleA * radianConstant) << std::endl;
+    std::cout << "Width b: " << b.w * cos(angleB * radianConstant) << std::endl;
+    std::cout << "Height a: " << a.h * sin((angleA + 90) * radianConstant) << std::endl;
+    std::cout << "Height b: " << b.h * sin((angleB + 90) * radianConstant) << std::endl;
+
+    if (b.x > a.x + a.w * cos(angleA * radianConstant))	{
+        std::cout << "FISK1" << std::endl;
+        return 0;
+	}
+	if (b.y > a.y + a.h * sin((angleA + 90) * radianConstant)) {
+        std::cout << "FISK2" << std::endl;
+        return 0;
+	}
+    if (b.x + b.w * cos(angleB * radianConstant) < a.x)	{
+        std::cout << "FISK3" << std::endl;
+        return 0;
+    }
+	if (b.y + b.h * sin((angleB + 90) * radianConstant) < a.y) {
+        std::cout << "FISK4" << std::endl;
+        return 0;
+	}
+
 
 	return 1;				//bounding boxes intersect
 }

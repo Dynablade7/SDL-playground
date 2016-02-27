@@ -93,6 +93,8 @@ int SDL_CollideBoundingBox(SDL_Surface *sa , int ax , int ay ,
  */
 int SDL_CollideBoundingBox(SDL_Rect a , SDL_Rect b);
 
+bool SDL_CollideBoundingBoxAngled(SDL_Rect a, double angleA, SDL_Rect b, double angleB);
+
 /**
  * tests whether 2 circles intersect
  *

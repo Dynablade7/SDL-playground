@@ -1,6 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include <vector>
 #include "SDL.h"
 
 /**
@@ -18,6 +19,10 @@ class Sprite {
          * on the sprite sheet.
          */
         Sprite(SDL_Texture* spriteSheet, SDL_Rect clip);
+
+        Sprite(SDL_Texture* spriteSheet, SDL_Rect clip, std::vector<SDL_Rect> boundingBoxes);
+
+        ~Sprite();
 
         /**
          * Render the sprite. Does not affect the size of the sprite in any way.
@@ -41,6 +46,8 @@ class Sprite {
          * The rectangle that defines the position and size of the sprite on the sprite sheet.
          */
         SDL_Rect _clip;
+
+        std::vector<SDL_Rect> _boundingBoxes;
 };
 
 #endif // SPRITE_H

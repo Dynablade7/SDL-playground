@@ -1,57 +1,50 @@
 #include "PlayerShip.h"
-#include <cmath>
-#include <stdio.h>
-
-#define PI 3.14159265
-#define radianConstant PI / 180 // To convert degrees to radians
+#include "SDL.h"
 
 /* There seem to be some issues with this initialization. Are START_POS_X and Y set
    to 0 when the constructor is called or something? Haven't they been initialized properly yet?
    The ship spawns at (0,0) regardless of their value. */
 PlayerShip::PlayerShip(Sprite* sprite) : MapObject(START_POS_X, START_POS_Y, sprite) {
+    generateHitboxes();
 }
 
 PlayerShip::PlayerShip(int x, int y, Sprite* sprite) : MapObject(x, y, sprite) {
+    generateHitboxes();
 }
 
 PlayerShip::PlayerShip(int x, int y, GraphicsManager* graphicsManager) :
     MapObject(x, y, graphicsManager->getSprite(SpriteEnum::TEST_SHIP)) {
-}
-
-PlayerShip::~PlayerShip() {
+        generateHitboxes();
 }
 
 void PlayerShip::processInput() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
     if (currentKeyStates[SDL_SCANCODE_W]) {
         // Calculate velocity based on current angle of PlayerShip (converted from degrees to radians)
-        applyForce(SPEED_CONST, _angle);
+        applyForce(SPEED_CONST, _direction);
     }
     // Left thruster - accelerate to the right
     if (currentKeyStates[SDL_SCANCODE_L]) {
-        applyForce(SPEED_CONST / 2, _angle + 90);
+        applyForce(SPEED_CONST / 2, _direction + 90);
     }
     // Right thruster - accelerate to the left
     if (currentKeyStates[SDL_SCANCODE_K]) {
-        applyForce(SPEED_CONST / 2, _angle - 90);
+        applyForce(SPEED_CONST / 2, _direction - 90);
     }
-    // Turn ship to the right
+    // Turn ship clockwise
     if (currentKeyStates[SDL_SCANCODE_D]) {
-        _angle += TURN_CONST;
+        rotateDeg(TURN_CONST);
     }
-    // Turn ship to the right
+    // Turn ship counter-clockwise
     if (currentKeyStates[SDL_SCANCODE_A]) {
-        _angle -= TURN_CONST;
+        rotateDeg(-TURN_CONST);
     }
 }
 
-void PlayerShip::move() {
-    _x += _xVel;
-    _y -= _yVel;
-}
-
-void PlayerShip::applyForce(double force, double direction) {
-    _yVel += force * cos(direction * radianConstant);
-    _xVel += force * sin(direction * radianConstant);
+void PlayerShip::generateHitboxes() {
+    Hitbox hb1(-10, -10, 5);
+    Hitbox hb2(10, 10, 5);
+    _hitboxes.push_back(hb1);
+    _hitboxes.push_back(hb2);
 }
 

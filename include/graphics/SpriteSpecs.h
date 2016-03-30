@@ -1,10 +1,8 @@
 #ifndef SPRITESPECS_H_INCLUDED
 #define SPRITESPECS_H_INCLUDED
 
-#include <iostream>
 #include "SDL.h"
 #include "Sprite.h"
-
 
 /*
     ---------------------------------------------------------------------------------------
@@ -22,7 +20,7 @@
 /**
  * Enum class with members representing the sprites of the game.
  */
-enum class SpriteEnum{RED_SQUARE, GREEN_SQUARE, TEST_SHIP};
+enum class SpriteEnum{RED_SQUARE, GREEN_SQUARE, TEST_SHIP, HITBOX};
 
 /**
  * Generates a Sprite depending on what SriteEnum is given as argument.
@@ -31,6 +29,6 @@ enum class SpriteEnum{RED_SQUARE, GREEN_SQUARE, TEST_SHIP};
  * @param spriteEnum - The SpriteEnum corresponding to the wanted Sprite.
  * @param spriteSheet - The sprite sheet were the sprites are found.
  */
-Sprite* generateSprite(SpriteEnum spriteEnum, SDL_Texture* spriteSheet);
+Sprite* sspecs_generateSprite(SpriteEnum spriteEnum, SDL_Texture* spriteSheet);
 
 #endif // SPRITESPECS_H_INCLUDED

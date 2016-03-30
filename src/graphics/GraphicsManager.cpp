@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <iostream>
 #include "GraphicsManager.h"
+
+#include <stdio.h>
 #include "Sprite.h"
 
 
@@ -20,8 +20,9 @@ GraphicsManager::~GraphicsManager() {
 }
 
 void GraphicsManager::initGraphics() {
-    //Create window
-    _gameWindow = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    // Create window
+    _gameWindow = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                   SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if(_gameWindow == nullptr)  {
         printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
     } else {
@@ -59,7 +60,7 @@ SDL_Texture* GraphicsManager::loadTexture(std::string path) {
         if (newTexture == nullptr) {
             printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
         }
-        //Get rid of old loaded surface
+        // Get rid of old loaded surface
         SDL_FreeSurface(loadedSurface);
     }
     return newTexture;
@@ -75,10 +76,12 @@ void GraphicsManager::GameUpdated() {
     MapObject* temp;
     for (unsigned int i = 0; i < _mapObjects->size(); ++i) {
         temp = _mapObjects->at(i);
+        // Draw the MapObject
         temp->draw(_renderer, temp->getX(), temp->getY());
+        // Draw the MapObject's hitboxes (debugging)
+        temp->drawHitboxes(_renderer, getSprite(SpriteEnum::HITBOX));
     }
     temp = nullptr;
-    // Update screen
     SDL_RenderPresent(_renderer);
 }
 
@@ -86,9 +89,8 @@ Sprite* GraphicsManager::getSprite(SpriteEnum spriteEnum) {
     if (spriteMap.find(spriteEnum) != spriteMap.end()) {
         return spriteMap[spriteEnum];
     } else {
-        Sprite* sprite = generateSprite(spriteEnum, _spriteSheet);
+        Sprite* sprite = sspecs_generateSprite(spriteEnum, _spriteSheet);
         spriteMap[spriteEnum] = sprite;
         return sprite;
     }
 }
-

@@ -2,7 +2,6 @@
 #include "Timer.h"
 
 Timer::Timer() {
-    //ctor
 }
 
 void Timer::start() {

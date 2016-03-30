@@ -14,7 +14,7 @@ MainGame::MainGame() {
 MainGame::~MainGame() {
     SDL_Quit();
     // Deallocate all MapObjects
-    for (int i = 0; i < _mapObjects->size(); ++i) {
+    for (unsigned int i = 0; i < _mapObjects->size(); ++i) {
         delete _mapObjects->at(i);
         _mapObjects->at(i) = nullptr;
     }
@@ -37,8 +37,7 @@ void MainGame::initSystems() {
     // Add listeners to vector for them to notified when the game is updated.
     gameUpdatedListeners.push_back(_graphicsManager);
     // Create the player ship
-    //_playerShip = new PlayerShip(_graphicsManager->getSprite(SpriteEnum::TEST_SHIP));
-    _playerShip = new PlayerShip(32, 32, _graphicsManager);
+    _playerShip = new PlayerShip(0, 0, _graphicsManager);
     _mapObjects->push_back(_playerShip);
 }
 
@@ -48,19 +47,13 @@ void MainGame::gameLoop() {
     // Integer for keeping track of how many frames have been rendered so far
     int countedFrames = 0;
     fpsTimer.start();
-    // ------- VERIFYING COLLISION FUNCTION ------
-    SDL_Rect rect1 = {0, 0, 2, 5};
-    SDL_Rect rect2 = {0, 0, 32, 32};
-    std::cout << SDL_CollideBoundingBoxAngled(rect1, 180, rect2, 180) << std::endl;
-    std::cout << SDL_CollideBoundingBox(rect1, rect2) << std::endl;
-    // -------------------------------------------
     while (_gameState != GameState::EXIT) {
         // Calculate and print current avarage fps
         // int avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
         // std::cout << avgFPS << std::endl;
         processInput();
         notifyGameUpdatedListeners();
-        _playerShip->move();
+        _playerShip->moveObject();
         ++countedFrames;
     }
 }

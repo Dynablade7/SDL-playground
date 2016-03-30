@@ -3,7 +3,6 @@
 
 #include "MapObject.h"
 #include "GraphicsManager.h"
-#include "SDL.h"
 
 /**
  * The class containing the MapObject controlled by the player.
@@ -32,11 +31,10 @@ class PlayerShip : public MapObject {
          * @param y - The y position where the object will be created
          * @param graphicsManager - A pointer to the game's GraphicsManager object.
          * In the constructor it is used to get the default sprite for this object.
-         * Creating a MapObject with this approach assumes that each object knows
+         * Creating a MapObject with this approach assumes that each class knows
          * on beforehand which sprite it should be using.
          */
          PlayerShip(int x, int y, GraphicsManager* graphicsManager);
-        ~PlayerShip();
 
         /**
          * This method processes keyboard input using SDL_SCANCODE and acts accordingly.
@@ -44,27 +42,13 @@ class PlayerShip : public MapObject {
          */
         void processInput();
 
-        /**
-         * Changes the PlayerShip's position based on its current _xVel and _yVel values.
-         */
-        void move();
-
-        /**
-         * Accelerates the PlayerShip in the specified direction.
-         * @param force - The force that is applied to the PlayerShip
-         * @param direction - The direction (degrees) that the PlayerShip is pushed towards.
-         *        0 degrees -> vertical acceleration upwards
-                  90 degrees -> horizontal acceleration to the left, etc
-         */
-        void applyForce(double force, double direction);
-
-
     private:
 
         /**
-         * The horizontal and vertical velocity of the PlayerShip, respectively.
+         * Implementation of pure virtual method from the base class.
+         * Generates the hitboxes that are associated with the PlayerShip.
          */
-        double _xVel, _yVel;
+        void generateHitboxes();
 
         /**
          * Constants declaring the default position of the PlayerShip.

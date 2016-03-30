@@ -74,8 +74,6 @@ class GraphicsManager : public GameUpdatedListener {
          * A vector of all MapObjects in the game.
          */
         std::vector<MapObject*>* _mapObjects = nullptr;
-
-
 };
 
 #endif // GRAPHICSMANAGER_H

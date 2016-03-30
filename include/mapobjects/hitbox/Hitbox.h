@@ -63,6 +63,11 @@ class Hitbox {
     private:
 
         /**
+         * Called from the constructors. Used to initialize values of _angle and _dist.
+         */
+        void init();
+
+        /**
          * The circle representing the hitbox, containing position relative to the MapObject
          * it is attatched to and its size.
          */

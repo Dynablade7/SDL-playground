@@ -7,22 +7,26 @@
 
 Hitbox::Hitbox(Circle c) :
     _circle(c) {
-        _dist = sqrt(pow(getCenterX(), 2) + pow(getCenterY(), 2));
-        _angle = atan2(getCenterY(), getCenterX()) * degreeConstant;
+    init();
+
 }
 
 Hitbox::Hitbox(double x, double y, int radius) :
     _circle(x, y, radius) {
-        // Calculate the distance from the center of the hitbox to the center of the MapObject
-        _dist = sqrt(pow(getCenterX(), 2) + pow(getCenterY(), 2));
-        // Calculate the initial angle
-        _angle = atan2(getCenterY(), getCenterX()) * degreeConstant;
+    init();
 }
 
 void Hitbox::updatePos(double angle) {
     _angle += angle;
     _circle.x = _dist * cos(_angle * radianConstant) - _circle.radius;
     _circle.y = _dist * sin(_angle * radianConstant) - _circle.radius;
+}
+
+void Hitbox::init() {
+    // Calculate the distance from the center of the hitbox to the center of the MapObject
+    _dist = sqrt(pow(getCenterX(), 2) + pow(getCenterY(), 2));
+    // Calculate the initial angle
+    _angle = atan2(getCenterY(), getCenterX()) * degreeConstant
 }
 
 Circle Hitbox::getCircle() {

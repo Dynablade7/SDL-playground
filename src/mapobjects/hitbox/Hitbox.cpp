@@ -26,7 +26,7 @@ void Hitbox::init() {
     // Calculate the distance from the center of the hitbox to the center of the MapObject
     _dist = sqrt(pow(getCenterX(), 2) + pow(getCenterY(), 2));
     // Calculate the initial angle
-    _angle = atan2(getCenterY(), getCenterX()) * degreeConstant
+    _angle = atan2(getCenterY(), getCenterX()) * degreeConstant;
 }
 
 Circle Hitbox::getCircle() {

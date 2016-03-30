@@ -2,7 +2,6 @@
 #include <iostream>
 #include <stdio.h>
 #include "PlayerShip.h"
-#include "sdl_extensions/SDL_collide.h"
 #include "SDL_image.h"
 
 MainGame::MainGame() {

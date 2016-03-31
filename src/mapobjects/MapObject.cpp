@@ -1,8 +1,6 @@
 #include "MapObject.h"
 #include <cmath>
-
-#define PI 3.14159265
-#define radianConstant PI / 180 // To convert degrees to radians
+#include "MathFunctions.h"
 
 MapObject::MapObject(int x, int y, Sprite* sprite) : _x(x), _y(y), _sprite(sprite) {
 }
@@ -41,8 +39,8 @@ void MapObject::moveObject() {
 }
 
 void MapObject::applyForce(double force, double direction) {
-    _yVel += force * cos(direction * radianConstant);
-    _xVel += force * sin(direction * radianConstant);
+    _yVel += math_cos(direction, force);
+    _xVel += math_sin(direction, force);
 }
 
 void MapObject::rotateDeg(double angle) {

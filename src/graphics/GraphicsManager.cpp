@@ -43,7 +43,7 @@ void GraphicsManager::initGraphics() {
 
     // At this point there is only one sprite sheet. If more are
     // added in the future, this should be done in a more elegant manner.
-    _spriteSheet = loadTexture("res/testsheet.png");
+    _spriteSheet = loadTexture("res/spritesheets/testsheet.png");
 }
 
 SDL_Texture* GraphicsManager::loadTexture(std::string path) {

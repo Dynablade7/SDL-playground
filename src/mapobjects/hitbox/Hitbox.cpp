@@ -1,14 +1,10 @@
 #include "Hitbox.h"
 #include <cmath>
-
-#define PI 3.14159265
-#define radianConstant PI / 180 // To convert degrees to radians
-#define degreeConstant 180 / PI // To convert radians to degrees
+#include "MathFunctions.h"
 
 Hitbox::Hitbox(Circle c) :
     _circle(c) {
     init();
-
 }
 
 Hitbox::Hitbox(double x, double y, int radius) :
@@ -18,15 +14,15 @@ Hitbox::Hitbox(double x, double y, int radius) :
 
 void Hitbox::updatePos(double angle) {
     _angle += angle;
-    _circle.x = _dist * cos(_angle * radianConstant) - _circle.radius;
-    _circle.y = _dist * sin(_angle * radianConstant) - _circle.radius;
+    _circle.x = math_cos(_angle, _dist) - _circle.radius;
+    _circle.y = math_sin(_angle, _dist) - _circle.radius;
 }
 
 void Hitbox::init() {
     // Calculate the distance from the center of the hitbox to the center of the MapObject
-    _dist = sqrt(pow(getCenterX(), 2) + pow(getCenterY(), 2));
+    _dist = math_calculateDist(getCenterX(), getCenterY());
     // Calculate the initial angle
-    _angle = atan2(getCenterY(), getCenterX()) * degreeConstant;
+    _angle = math_atan2(getCenterY(), getCenterX());
 }
 
 Circle Hitbox::getCircle() {

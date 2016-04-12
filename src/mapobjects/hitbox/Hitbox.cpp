@@ -1,21 +1,15 @@
 #include "Hitbox.h"
-#include <cmath>
 #include "MathFunctions.h"
 
-Hitbox::Hitbox(Circle c) :
-    _circle(c) {
-    init();
-}
-
 Hitbox::Hitbox(double x, double y, int radius) :
-    _circle(x, y, radius) {
+    _x(x), _y(y), _radius(radius) {
     init();
 }
 
 void Hitbox::updatePos(double angle) {
     _angle += angle;
-    _circle.x = math_cos(_angle, _dist) - _circle.radius;
-    _circle.y = math_sin(_angle, _dist) - _circle.radius;
+    _x = math_cos(_angle, _dist) - _radius;
+    _y = math_sin(_angle, _dist) - _radius;
 }
 
 void Hitbox::init() {
@@ -25,38 +19,38 @@ void Hitbox::init() {
     _angle = math_atan2(getCenterY(), getCenterX());
 }
 
-Circle Hitbox::getCircle() {
-    return _circle;
-}
 
 double Hitbox::getX() {
-    return _circle.x;
+    return _x;
 }
 
 double Hitbox::getY() {
-    return _circle.y;
+    return _y;
 }
 
 double Hitbox::getCenterX() {
-    return _circle.x + _circle.radius;
+    return _x + _radius;
 }
 
 double Hitbox::getCenterY() {
-    return _circle.y + _circle.radius;
+    return _y + _radius;
 }
 
 double Hitbox::getAbsoluteX(double x) {
-    return _circle.x + x;
+    return _x + x;
 }
 
 double Hitbox::getAbsoluteY(double y) {
-    return _circle.y + y;
+    return _y + y;
 }
 
 int Hitbox::getRadius() {
-    return _circle.radius;
+    return _radius;
 }
 
-bool hitbox_collision(Hitbox& hb1, Hitbox& hb2) {
-    return circle_intersect(hb1.getCircle(), hb2.getCircle());
+bool hitbox_collision(Hitbox& hb1, double x1, double y1, Hitbox& hb2, double x2, double y2) {
+    double dist = math_calculateDist(hb1.getCenterX() + x1, hb1.getCenterY() + y1,
+                                     hb2.getCenterX() + x2, hb2.getCenterY() + y2);
+    return (dist <= hb1.getRadius() + hb2.getRadius());
 }
+

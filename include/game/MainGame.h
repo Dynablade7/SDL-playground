@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "CollisionManager.h"
 #include "GraphicsManager.h"
 #include "MapObject.h"
 #include "PlayerShip.h"
@@ -56,6 +57,7 @@ class MainGame {
          */
         GameState _gameState;
         GraphicsManager* _graphicsManager = nullptr;
+        CollisionManager* _collisionManager = nullptr;
 
         /**
          * A vector of all objects implementing the GameUpdatedListener interface.

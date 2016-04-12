@@ -10,7 +10,7 @@ class CollisionManager : public GameUpdatedListener {
 
         /**
          * Constructor.
-         * @param mapObjects - A pointer to a vetor containing all the game's
+         * @param mapObjects - A pointer to a vector containing all the game's
          * MapObjects. These are used for collision detection.
          */
         CollisionManager(std::vector<MapObject*>* mapObjects);
@@ -21,7 +21,17 @@ class CollisionManager : public GameUpdatedListener {
          * be checked for collisions. Utilizing the Observer design pattern.
          */
         void GameUpdated();
+
     private:
+
+        /**
+         * Checks for collisions between all hitboxes of all MapObject
+         * currently in the game.
+         * Runs in O(n^2) time, where n is the total number of hitboxes across
+         * all MapObjects.
+         * I will probably implement a quad-tree algorithm later to optimize
+         * collision management.
+         */
         void checkCollisions();
         std::vector<MapObject*>* _mapObjects = nullptr;
 };

@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include "Sprite.h"
 
-
-GraphicsManager::GraphicsManager(std::vector<MapObject*>* mapObjects) : _mapObjects(mapObjects) {
+GraphicsManager::GraphicsManager(std::vector<MapObject*>* mapObjects) :
+    _mapObjects(mapObjects) {
 }
 
 GraphicsManager::~GraphicsManager() {

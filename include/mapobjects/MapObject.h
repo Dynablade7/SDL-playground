@@ -63,6 +63,7 @@ class MapObject {
 
         double getX();
         double getY();
+        std::vector<Hitbox> getHitboxes();
 
     protected:
 

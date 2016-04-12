@@ -1,8 +1,8 @@
 #include "MapObject.h"
-#include <cmath>
 #include "MathFunctions.h"
 
-MapObject::MapObject(int x, int y, Sprite* sprite) : _x(x), _y(y), _sprite(sprite) {
+MapObject::MapObject(int x, int y, Sprite* sprite) :
+     _x(x), _y(y), _sprite(sprite) {
 }
 
 MapObject::~MapObject() {
@@ -64,4 +64,8 @@ double MapObject::getX() {
 
 double MapObject::getY() {
     return _y;
+}
+
+std::vector<Hitbox> MapObject::getHitboxes() {
+    return _hitboxes;
 }

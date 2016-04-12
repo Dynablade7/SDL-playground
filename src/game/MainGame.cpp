@@ -8,6 +8,7 @@ MainGame::MainGame() {
     _gameState = GameState::PLAY;
     _mapObjects = new std::vector<MapObject*>();
     _graphicsManager = new GraphicsManager(_mapObjects);
+    _collisionManager = new CollisionManager(_mapObjects);
 }
 
 MainGame::~MainGame() {
@@ -21,6 +22,8 @@ MainGame::~MainGame() {
     _graphicsManager = nullptr;
     delete _mapObjects;
     _mapObjects = nullptr;
+    delete _collisionManager;
+    _collisionManager = nullptr;
 }
 
 void MainGame::run() {
@@ -35,9 +38,12 @@ void MainGame::initSystems() {
     _graphicsManager->initGraphics();
     // Add listeners to vector for them to notified when the game is updated.
     gameUpdatedListeners.push_back(_graphicsManager);
+    gameUpdatedListeners.push_back(_collisionManager);
     // Create the player ship
     _playerShip = new PlayerShip(0, 0, _graphicsManager);
     _mapObjects->push_back(_playerShip);
+    PlayerShip* testShip1 = new PlayerShip(100, 100, _graphicsManager);
+    _mapObjects->push_back(testShip1);
 }
 
 void MainGame::gameLoop() {

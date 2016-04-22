@@ -1,4 +1,8 @@
 #include "MapObject.h"
+
+#include <iostream>
+#include <typeinfo>
+#include "Hurtbox.h"
 #include "MathFunctions.h"
 
 MapObject::MapObject(int x, int y, Sprite* sprite) :
@@ -6,6 +10,10 @@ MapObject::MapObject(int x, int y, Sprite* sprite) :
 }
 
 MapObject::~MapObject() {
+    for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
+        delete _hitboxes.at(i);
+        _hitboxes.at(i) = nullptr;
+    }
 }
 
 MapObject::MapObject(const MapObject& other) {
@@ -26,11 +34,27 @@ void MapObject::draw(SDL_Renderer* renderer, int x, int y, SDL_Point* center,
 
 void MapObject::drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite) {
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
-        Hitbox hb = _hitboxes.at(i);
         // Draw each hitbox
-        hitboxSprite->drawResized(renderer, hb.getAbsoluteX(_x + getCenter().x), hb.getAbsoluteY(_y + getCenter().y),
-                                  hb.getRadius() * 2, hb.getRadius() * 2);
+        Hitbox* hb = _hitboxes.at(i);
+        hitboxSprite->drawResized(renderer,
+                                  hb->getAbsoluteX(_x + getCenter().x),
+                                  hb->getAbsoluteY(_y + getCenter().y),
+                                  hb->getRadius() * 2,
+                                  hb->getRadius() * 2);
     }
+}
+
+void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
+//    Hurtbox hurtbox(0, 0, 0);
+//    if (typeid(hurtbox) == typeid(myHb)) {
+//        std::cout << "The same!" << std::endl;
+//    } else {
+//        std::cout << "Not the same!" << std::endl;
+//    }
+//    std::cout << typeid(hurtbox).name() << std::endl;
+//    std::cout << typeid(myHb).name() << std::endl;
+
+    std::cout << "COLLISION" << std::endl;
 }
 
 void MapObject::moveObject() {
@@ -48,7 +72,7 @@ void MapObject::rotateDeg(double angle) {
     // Reposition all hitboxes
     Hitbox* hb = nullptr;
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
-        hb = &_hitboxes.at(i);
+        hb = _hitboxes.at(i);
         hb->updatePos(angle);
     }
     hb = nullptr;
@@ -66,6 +90,6 @@ double MapObject::getY() {
     return _y;
 }
 
-std::vector<Hitbox> MapObject::getHitboxes() {
+std::vector<Hitbox*> MapObject::getHitboxes() {
     return _hitboxes;
 }

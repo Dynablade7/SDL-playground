@@ -55,6 +55,8 @@ class MapObject {
          */
         void drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite);
 
+        void onCollision(Hitbox* myHb, Hitbox* otherHb);
+
         /**
          * Returns the center of the MapObject, according to its current sprite.
          * In practice, this method simply calls the sprite's getCenter() method.
@@ -63,7 +65,7 @@ class MapObject {
 
         double getX();
         double getY();
-        std::vector<Hitbox> getHitboxes();
+        std::vector<Hitbox*> getHitboxes();
 
     protected:
 
@@ -106,7 +108,7 @@ class MapObject {
         /**
          * A vector of all hitboxes associated with the MapObject.
          */
-        std::vector<Hitbox> _hitboxes;
+        std::vector<Hitbox*> _hitboxes;
 };
 
 #endif // MAPOBJECT_H

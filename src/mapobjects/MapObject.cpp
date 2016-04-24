@@ -50,7 +50,11 @@ void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
     switch (myHb->getHitboxType()) {
     case HitboxType::HURTBOX:
     {
-        Hurtbox* hb = static_cast<Hurtbox*>(myHb);
+        Hurtbox* hb1 = static_cast<Hurtbox*>(myHb);
+        if (otherHb->getHitboxType() == HitboxType::HURTBOX) {
+            _xVel = -_xVel;
+            _yVel = -_yVel;
+        }
         break;
     }
     default:

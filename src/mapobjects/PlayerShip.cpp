@@ -43,9 +43,7 @@ void PlayerShip::processInput() {
 }
 
 void PlayerShip::generateHitboxes() {
-    Hurtbox* hb1 = new Hurtbox(-10, -10, 5);
-    Hurtbox* hb2 = new Hurtbox(10, 10, 5);
+    Hurtbox* hb1 = new Hurtbox(-10, -10, 10);
     _hitboxes.push_back(hb1);
-    _hitboxes.push_back(hb2);
 }
 

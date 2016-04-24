@@ -3,6 +3,7 @@
 #include <iostream>
 #include <typeinfo>
 #include "Hurtbox.h"
+#include "AttackHitbox.h"
 #include "MathFunctions.h"
 
 MapObject::MapObject(int x, int y, Sprite* sprite) :
@@ -45,16 +46,16 @@ void MapObject::drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite) {
 }
 
 void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
-//    Hurtbox hurtbox(0, 0, 0);
-//    if (typeid(hurtbox) == typeid(myHb)) {
-//        std::cout << "The same!" << std::endl;
-//    } else {
-//        std::cout << "Not the same!" << std::endl;
-//    }
-//    std::cout << typeid(hurtbox).name() << std::endl;
-//    std::cout << typeid(myHb).name() << std::endl;
-
-    std::cout << "COLLISION" << std::endl;
+    // Perform actions depending on which types of hitboxes collide.
+    switch (myHb->getHitboxType()) {
+    case HitboxType::HURTBOX:
+    {
+        Hurtbox* hb = static_cast<Hurtbox*>(myHb);
+        break;
+    }
+    default:
+        std::cout << "Hitbox not specified in MapObject::onCollision" << std::endl;
+    }
 }
 
 void MapObject::moveObject() {

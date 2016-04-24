@@ -58,6 +58,8 @@ class Hitbox {
 
         int getRadius();
 
+        HitboxType getHitboxType();
+
     protected:
 
         double _x, _y;

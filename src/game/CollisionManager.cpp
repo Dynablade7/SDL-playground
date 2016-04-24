@@ -12,11 +12,13 @@ void CollisionManager::checkCollisions() {
         MapObject* temp2 = _mapObjects->at(i + 1);
         for (unsigned int j = 0; j < temp1->getHitboxes().size(); ++j) {
             for (unsigned int k = 0; k < temp2->getHitboxes().size(); ++k) {
-                if (hitbox_collision(temp1->getHitboxes().at(j), temp1->getX(), temp1->getY(),
-                                     temp2->getHitboxes().at(k), temp2->getX(), temp2->getY())) {
-                                        // If collision of hitboxes
-                                        temp1->onCollision(temp1->getHitboxes().at(j), temp2->getHitboxes().at(k));
-                                     }
+                Hitbox* hb1 = temp1->getHitboxes().at(j);
+                Hitbox* hb2 = temp2->getHitboxes().at(k);
+                if (hitbox_collision(hb1, temp1->getX(), temp1->getY(), hb2, temp2->getX(), temp2->getY())) {
+                    // If collision of hitboxes
+                    temp1->onCollision(hb1, hb2);
+                    temp2->onCollision(hb2, hb1);
+                }
             }
         }
 

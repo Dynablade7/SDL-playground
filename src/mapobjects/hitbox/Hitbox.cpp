@@ -43,6 +43,10 @@ int Hitbox::getRadius() {
     return _radius;
 }
 
+HitboxType Hitbox::getHitboxType() {
+    return _hitboxType;
+}
+
 bool hitbox_collision(Hitbox* hb1, double x1, double y1, Hitbox* hb2, double x2, double y2) {
     double dist = math_calculateDist(hb1->getCenterX() + x1, hb1->getCenterY() + y1,
                                      hb2->getCenterX() + x2, hb2->getCenterY() + y2);

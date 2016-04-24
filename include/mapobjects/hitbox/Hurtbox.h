@@ -1,7 +1,7 @@
 #ifndef HURTBOX_H
 #define HURTBOX_H
 
-#include <Hitbox.h>
+#include "Hitbox.h"
 
 
 class Hurtbox : public Hitbox {

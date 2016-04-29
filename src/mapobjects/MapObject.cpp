@@ -37,11 +37,8 @@ void MapObject::drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite) {
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
         // Draw each hitbox
         Hitbox* hb = _hitboxes.at(i);
-        hitboxSprite->drawResized(renderer,
-                                  hb->getAbsoluteX(_x + getCenter().x),
-                                  hb->getAbsoluteY(_y + getCenter().y),
-                                  hb->getRadius() * 2,
-                                  hb->getRadius() * 2);
+        hitboxSprite->drawResized(renderer, hb->getX(), hb->getY(),
+                                  hb->getRadius() * 2, hb->getRadius() * 2);
     }
 }
 
@@ -51,12 +48,18 @@ void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
     case HitboxType::HURTBOX:
     {
         Hurtbox* hb1 = static_cast<Hurtbox*>(myHb);
-        if (otherHb->getHitboxType() == HitboxType::HURTBOX) {
+        HitboxType otherType = otherHb->getHitboxType();
+        if (otherType == HitboxType::HURTBOX) {
             _xVel = -_xVel;
             _yVel = -_yVel;
+        } else if (otherType == HitboxType::ATTACK) {
+            AttackHitbox* hb2 = static_cast<AttackHitbox*>(otherHb);
+            applyForce(hb2->getLaunch(), hb2->getLaunchAngle());
         }
         break;
     }
+    case HitboxType::ATTACK:
+        break;
     default:
         std::cout << "Hitbox not specified in MapObject::onCollision" << std::endl;
     }
@@ -65,6 +68,9 @@ void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
 void MapObject::moveObject() {
     _x += _xVel;
     _y -= _yVel;
+    for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
+        _hitboxes.at(i)->updatePos(_x + getCenter().x, _y + getCenter().y);
+    }
 }
 
 void MapObject::applyForce(double force, double direction) {
@@ -78,7 +84,7 @@ void MapObject::rotateDeg(double angle) {
     Hitbox* hb = nullptr;
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
         hb = _hitboxes.at(i);
-        hb->updatePos(angle);
+        hb->updateRelativePos(angle);
     }
     hb = nullptr;
 }

@@ -5,12 +5,17 @@
 
 class AttackHitbox : public Hitbox {
     public:
-        AttackHitbox(double x, double y, int radius);
+        AttackHitbox(double x, double y, double xRel, double yRel, int radius,
+                     double damage, double launch, double launchAngle);
         virtual ~AttackHitbox();
+        double getDamage();
+        double getLaunch();
+        double getLaunchAngle();
     protected:
     private:
-        double _power;
+        double _damage;
         double _launch;
+        double _launchAngle;
 };
 
 #endif // ATTACKHITBOX_H

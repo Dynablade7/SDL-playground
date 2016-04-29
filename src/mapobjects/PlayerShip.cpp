@@ -1,4 +1,6 @@
 #include "PlayerShip.h"
+
+#include "AttackHitbox.h"
 #include "SDL.h"
 #include "Hurtbox.h"
 
@@ -43,7 +45,9 @@ void PlayerShip::processInput() {
 }
 
 void PlayerShip::generateHitboxes() {
-    Hurtbox* hb1 = new Hurtbox(-10, -10, 10);
+    Hurtbox* hb1 = new Hurtbox(_x, _y, -10, -10, 10);
+    AttackHitbox* hb2 = new AttackHitbox(_x, _y, -5, -20, 5, 0, 1, 0);
     _hitboxes.push_back(hb1);
+    _hitboxes.push_back(hb2);
 }
 

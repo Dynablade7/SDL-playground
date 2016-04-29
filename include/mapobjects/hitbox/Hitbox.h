@@ -25,7 +25,13 @@ class Hitbox {
          * @param radius - The circle's radius.
          * @param hitboxType - The type of the hitbox, specified in each subclass' constructor.
          */
-        Hitbox(double x, double y, int radius, HitboxType hitboxType);
+        Hitbox(double x, double y, double xRel, double yRel, int radius, HitboxType hitboxType);
+
+        /**
+         * When the MapObject that the hitbox is attatched to moves, this function
+         * is called to update the hotbox' position.
+         */
+        void updatePos(double x, double y);
 
         /**
          * Changes the position of the hitbox in relation to the MapObject it is attatched to.
@@ -33,7 +39,7 @@ class Hitbox {
          * the new x and y values.
          * @param angle - The number of degrees that the MapObject is rotated.
          */
-        void updatePos(double angle);
+        void updateRelativePos(double angle);
 
         /**
          * Returns the x/y value of the hitbox' "upper left corner" relative to the
@@ -47,15 +53,6 @@ class Hitbox {
          */
         double getCenterX(), getCenterY();
 
-        /**
-         * Returns the x/y value of the hitbox plus the value passed as a parameter.
-         * Pass the x/y position of the MapObject it is attatched to in order to
-         * get the absolute position.
-         * @param x - The x offset
-         * @param y - The y offset
-         */
-        double getAbsoluteX(double x), getAbsoluteY(double y);
-
         int getRadius();
 
         HitboxType getHitboxType();
@@ -63,6 +60,11 @@ class Hitbox {
     protected:
 
         double _x, _y;
+
+        /**
+         * The hitbox' position relative to the center of the MapObject it is attatched to.
+         */
+        double _xRel, _yRel;
         int _radius;
 
         /**
@@ -87,6 +89,6 @@ class Hitbox {
  * if their circles intersect.
  * @return true if collision, else false.
  */
-bool hitbox_collision(Hitbox* hb1, double x1, double y1, Hitbox* hb2, double x2, double y2);
+bool hitbox_collision(Hitbox* hb1, Hitbox* hb2);
 
 #endif // HITBOX_H

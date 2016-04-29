@@ -6,7 +6,7 @@
 
 class Hurtbox : public Hitbox {
     public:
-        Hurtbox(double x, double y, int radius);
+        Hurtbox(double x, double y, double xRel, double yRel, int radius);
         virtual ~Hurtbox();
     protected:
     private:

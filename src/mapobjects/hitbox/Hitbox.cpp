@@ -53,3 +53,9 @@ bool hitbox_collision(Hitbox* hb1, Hitbox* hb2) {
     return (dist <= hb1->getRadius() + hb2->getRadius());
 }
 
+double hitbox_rel_angle(Hitbox* hb1, Hitbox* hb2) {
+    return math_atan2(hb2->getCenterY() - hb1->getCenterY(),
+                      hb2->getCenterX() - hb1->getCenterX());
+
+}
+

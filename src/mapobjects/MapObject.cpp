@@ -50,11 +50,12 @@ void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
         Hurtbox* hb1 = static_cast<Hurtbox*>(myHb);
         HitboxType otherType = otherHb->getHitboxType();
         if (otherType == HitboxType::HURTBOX) {
-            _xVel = -_xVel;
-            _yVel = -_yVel;
+            //_xVel = -_xVel;
+            //_yVel = -_yVel;
         } else if (otherType == HitboxType::ATTACK) {
             AttackHitbox* hb2 = static_cast<AttackHitbox*>(otherHb);
-            applyForce(hb2->getLaunch(), hb2->getLaunchAngle());
+            double launchAngle = hitbox_rel_angle(hb1, hb2) + hb2->getLaunchAngle() - 90;
+            applyForce(hb2->getLaunch(), launchAngle);
         }
         break;
     }

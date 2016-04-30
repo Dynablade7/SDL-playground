@@ -96,4 +96,11 @@ class Hitbox {
  */
 bool hitbox_collision(Hitbox* hb1, Hitbox* hb2);
 
+/**
+ * The angle between two hitboxes, relative to hb1.
+ * This should be used when two hitboxes collide, to check where they
+ * are located in relation to each other.
+ */
+double hitbox_rel_angle(Hitbox* hb1, Hitbox* hb2);
+
 #endif // HITBOX_H

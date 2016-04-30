@@ -55,9 +55,21 @@ class MapObject {
          */
         void drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite);
 
+        /**
+         * When there is a collision betweenn two hitboxes, this method
+         * resolves it depending on what type of hitboxes collide.
+         */
         void onCollision(Hitbox* myHb, Hitbox* otherHb);
 
         double getX(), getY();
+
+        /**
+         * Returns the center x/y values of the MapObject, relative to its
+         * current x/y position. In practice, the return value is the sprite's
+         * width/height divided by 2, respectively.
+         * To get the absolute center point of the MapObject, use
+         * get[X/Y]() + getCenter[X/Y]().
+         */
         double getCenterX(), getCenterY();
         std::vector<Hitbox*> getHitboxes();
 

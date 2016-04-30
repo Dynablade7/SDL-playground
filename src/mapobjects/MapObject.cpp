@@ -11,6 +11,7 @@ MapObject::MapObject(int x, int y, Sprite* sprite) :
 }
 
 MapObject::~MapObject() {
+    // Deallocate all hitboxes attatched to the MapObject
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
         delete _hitboxes.at(i);
         _hitboxes.at(i) = nullptr;
@@ -69,6 +70,7 @@ void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
 void MapObject::moveObject() {
     _x += _xVel;
     _y -= _yVel;
+    // Update the position of all the MapObject's hitboxes
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
         _hitboxes.at(i)->updatePos(_x + getCenterX(), _y + getCenterY());
     }
@@ -81,18 +83,11 @@ void MapObject::applyForce(double force, double direction) {
 
 void MapObject::rotateDeg(double angle) {
     _direction += angle;
-    // Reposition all hitboxes
-    Hitbox* hb = nullptr;
+    // Update the relative position of all the MapObject's hitboxes
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
-        hb = _hitboxes.at(i);
-        hb->updateRelativePos(angle);
+        _hitboxes.at(i)->updateRelativePos(angle);
     }
-    hb = nullptr;
 }
-
-//SDL_Point MapObject::getCenter() {
-    //return _sprite->getCenter();
-//}
 
 double MapObject::getX() {
     return _x;

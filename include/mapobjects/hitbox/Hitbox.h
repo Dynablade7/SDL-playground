@@ -9,20 +9,26 @@
 enum class HitboxType {HURTBOX, ATTACK, SHIELD};
 
 /**
- * A class to represent hitboxes of the MapObjects in the game.
- * Each hitbox is basically a circle, with some additional attributes to be
- * added later, such as damage, launch rate, etc (currently unipmlemented).
- * Hitboxes will be the main focus when dealing with collisions between MapObjects.
+ * The base class for all hitboxes in the game.
+ * Hitboxes are the basic units used for collision control. Each MapObject
+ * has a number of different hitboxes attatched to them which are used when
+ * checking if it collides with another MapObject.
+ *
+ * Each hitbox is basically a circle with different attributes depending on
+ * what type of hitbox it is.
  */
 class Hitbox {
     public:
 
         /**
-         * Constructor. This constructor creates a circle object from the
-         * arguments passed to the function and assigns that circle to the hitbox.
-         * @param x - The x position of the circle's "upper left corner"
-         * @param y - The y position of the circle's "upper left corner"
-         * @param radius - The circle's radius.
+         * Constructor.
+         * @param x - The absolute x position of the hitbox' "upper left corner"
+         * @param y - The absolute y position of the hitbox' "upper left corner"
+         * @param xRel - The x position of the Hitbox' "upper left corner", relative
+         * to the MapObject that created it.
+         * @param yRel - The y position of the Hitbox' "upper left corner", relative
+         * to the MapObject that created it.
+         * @param radius - The hitbox' radius.
          * @param hitboxType - The type of the hitbox, specified in each subclass' constructor.
          */
         Hitbox(double x, double y, double xRel, double yRel, int radius, HitboxType hitboxType);
@@ -46,15 +52,11 @@ class Hitbox {
          */
         void updateRelativePos(double angle);
 
-        /**
-         * Returns the x/y value of the hitbox' "upper left corner" relative to the
-         * center point of the MapObject it is attatched to.
-         */
         double getX(), getY();
 
         /**
-         * Returns the x/y value of the hitbox' center relative to the center point
-         * of the MapObject it is attatched to.
+         * Returns the absolute x/y value of the hitbox' center.
+         * In practice, the value returned is [_x/_y] + _radius, respectively.
          */
         double getCenterX(), getCenterY();
 
@@ -64,12 +66,21 @@ class Hitbox {
 
     protected:
 
+        /**
+         * The absolute x/y values of the hitbox' "upper left corner".
+         * To get the x/y values of the hitbox' center, simply add _radius.
+         * This is done in the class' getCenter[X/Y]() methods.
+         */
         double _x, _y;
 
         /**
          * The hitbox' position relative to the center of the MapObject it is attatched to.
          */
         double _xRel, _yRel;
+
+        /**
+         * The radius of the hitbox.
+         */
         int _radius;
 
         /**

@@ -1,12 +1,17 @@
 #include "Hitbox.h"
 #include "MathFunctions.h"
 
+#include <iostream>
+
 Hitbox::Hitbox(double x, double y, double xRel, double yRel, int radius, HitboxType hitboxType) :
     _x(x), _y(y), _xRel(xRel), _yRel(yRel), _radius(radius), _hitboxType(hitboxType) {
     // Calculate the distance from the center of the hitbox to the center of the MapObject
     _dist = math_calculateDist(_xRel + _radius, _yRel + _radius);
     // Calculate the initial angle
     _angle = math_atan2(_yRel + _radius, _xRel + _radius);
+}
+
+Hitbox::~Hitbox() {
 }
 
 void Hitbox::updatePos(double x, double y) {

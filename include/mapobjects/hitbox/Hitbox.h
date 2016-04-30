@@ -28,6 +28,11 @@ class Hitbox {
         Hitbox(double x, double y, double xRel, double yRel, int radius, HitboxType hitboxType);
 
         /**
+         * Destructor.
+         */
+        virtual ~Hitbox();
+
+        /**
          * When the MapObject that the hitbox is attatched to moves, this function
          * is called to update the hotbox' position.
          */

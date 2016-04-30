@@ -18,6 +18,10 @@ double math_sin(double angle, double c) {
     return c * sin(angle * radianConstant);
 }
 
+double math_tan(double angle, double c) {
+    return c * tan(angle * radianConstant);
+}
+
 double math_atan2(double y, double x) {
     return atan2(y, x) * degreeConstant;
 }

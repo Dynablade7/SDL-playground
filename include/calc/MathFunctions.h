@@ -36,6 +36,13 @@ double math_cos(double angle, double c = 1);
 double math_sin(double angle, double c = 1);
 
 /**
+ * @param angle - The angle in degrees.
+ * @param c - The constant by which the result is multiplied. Default 1.
+ * @return tan(angle) * c
+ */
+double math_tan(double angle, double c = 1);
+
+/**
  * Returns the angle (in degrees) of the right triangle consisting
  * of oposite y and adjecent x. This function DOES take which quadrant
  * the triangle is in in consideration.

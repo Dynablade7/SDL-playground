@@ -31,11 +31,11 @@ void Sprite::drawResized(SDL_Renderer* renderer, int x, int y, int w, int h,
     SDL_RenderCopyEx(renderer, _spriteSheet, &_clip, &destination, angle, center, flip);
 }
 
-SDL_Point Sprite::getCenter() {
-    SDL_Point p;
-    p.x = _clip.w / 2;
-    p.y = _clip.h / 2;
-    return p;
+double Sprite::getCenterX() {
+    return _clip.w / 2;
 }
 
+double Sprite::getCenterY() {
+    return _clip.h / 2;
+}
 

@@ -45,11 +45,7 @@ class Sprite {
         void drawResized(SDL_Renderer* renderer, int x, int y, int w, int h, double angle = 0.0,
                          SDL_Point* center = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-        /**
-         * Returns the relative center point of the sprite. In practice, this is the
-         * sprite's width divided by 2 and the sprite's height divided by 2.
-         */
-        SDL_Point getCenter();
+        double getCenterX(), getCenterY();
 
     private:
 

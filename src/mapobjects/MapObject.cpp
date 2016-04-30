@@ -69,7 +69,7 @@ void MapObject::moveObject() {
     _x += _xVel;
     _y -= _yVel;
     for (unsigned int i = 0; i < _hitboxes.size(); ++i) {
-        _hitboxes.at(i)->updatePos(_x + getCenter().x, _y + getCenter().y);
+        _hitboxes.at(i)->updatePos(_x + getCenterX(), _y + getCenterY());
     }
 }
 
@@ -89,9 +89,9 @@ void MapObject::rotateDeg(double angle) {
     hb = nullptr;
 }
 
-SDL_Point MapObject::getCenter() {
-    return _sprite->getCenter();
-}
+//SDL_Point MapObject::getCenter() {
+    //return _sprite->getCenter();
+//}
 
 double MapObject::getX() {
     return _x;
@@ -99,6 +99,14 @@ double MapObject::getX() {
 
 double MapObject::getY() {
     return _y;
+}
+
+double MapObject::getCenterX() {
+    return _sprite->getCenterX();
+}
+
+double MapObject::getCenterY() {
+    return _sprite->getCenterY();
 }
 
 std::vector<Hitbox*> MapObject::getHitboxes() {

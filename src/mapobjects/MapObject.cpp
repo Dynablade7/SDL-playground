@@ -5,6 +5,7 @@
 #include "Hurtbox.h"
 #include "AttackHitbox.h"
 #include "MathFunctions.h"
+#include "Vector2D.h"
 
 MapObject::MapObject(int x, int y, Sprite* sprite) :
      _x(x), _y(y), _sprite(sprite) {
@@ -51,8 +52,12 @@ void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
         Hurtbox* hb1 = static_cast<Hurtbox*>(myHb);
         HitboxType otherType = otherHb->getHitboxType();
         if (otherType == HitboxType::HURTBOX) {
-            //_xVel = -_xVel;
-            //_yVel = -_yVel;
+            Vector2D vel(_xVel, _yVel);
+            double angle = hitbox_rel_angle(myHb, otherHb);
+            Vector2D collisionNormal(1, math_tan(angle));
+            Vector2D newVel = vel.mirror(collisionNormal) * -1;
+            _xVel = newVel.getX();
+            _yVel = newVel.getY();
         } else if (otherType == HitboxType::ATTACK) {
             AttackHitbox* hb2 = static_cast<AttackHitbox*>(otherHb);
             double launchAngle = hitbox_rel_angle(hb1, hb2) + hb2->getLaunchAngle() - 90;

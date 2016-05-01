@@ -59,7 +59,7 @@ class MapObject {
          * When there is a collision betweenn two hitboxes, this method
          * resolves it depending on what type of hitboxes collide.
          */
-        void onCollision(Hitbox* myHb, Hitbox* otherHb);
+        void resolveCollision(Hitbox* myHb, Hitbox* otherHb);
 
         double getX(), getY();
 

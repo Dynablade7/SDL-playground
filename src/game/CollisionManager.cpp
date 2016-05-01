@@ -16,8 +16,8 @@ void CollisionManager::checkCollisions() {
                 Hitbox* hb2 = temp2->getHitboxes().at(k);
                 if (hitbox_collision(hb1, hb2)) {
                     // If collision of hitboxes
-                    temp1->onCollision(hb1, hb2);
-                    temp2->onCollision(hb2, hb1);
+                    temp1->resolveCollision(hb1, hb2);
+                    temp2->resolveCollision(hb2, hb1);
                 }
             }
         }

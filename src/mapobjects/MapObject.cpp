@@ -44,7 +44,7 @@ void MapObject::drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite) {
     }
 }
 
-void MapObject::onCollision(Hitbox* myHb, Hitbox* otherHb) {
+void MapObject::resolveCollision(Hitbox* myHb, Hitbox* otherHb) {
     // Perform actions depending on which types of hitboxes collide.
     switch (myHb->getHitboxType()) {
     case HitboxType::HURTBOX:

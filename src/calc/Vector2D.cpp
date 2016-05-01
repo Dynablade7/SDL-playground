@@ -37,10 +37,18 @@ double Vector2D::getLenght() const {
     return math_calculateDist(_x, _y);
 }
 
+Vector2D Vector2D::operator+(const Vector2D& v2d) {
+    return Vector2D(_x + v2d.getX(), _y + v2d.getY());
+}
+
 Vector2D Vector2D::operator-(const Vector2D& v2d) {
     return Vector2D(_x - v2d.getX(), _y - v2d.getY());
 }
 
 Vector2D Vector2D::operator*(double t) {
     return Vector2D(_x * t, _y * t);
+}
+
+Vector2D Vector2D::operator/(double t) {
+    return Vector2D(_x / t, _y / t);
 }

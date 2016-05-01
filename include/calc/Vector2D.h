@@ -35,8 +35,10 @@ class Vector2D {
         double getY() const;
         double getLenght() const;
 
+        Vector2D operator+(const Vector2D& v2d);
         Vector2D operator-(const Vector2D& v2d);
         Vector2D operator*(double t);
+        Vector2D operator/(double t);
 
     private:
         double _x, _y;

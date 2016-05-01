@@ -22,7 +22,10 @@ Vector2D Vector2D::mirror(const Vector2D& v2d) {
     Vector2D normal(v2d.getY() * -1, v2d.getX());
     Vector2D projection = project(normal);
     return *this - projection * 2;
+}
 
+void Vector2D::normalize() {
+    *this = *this / getLenght();
 }
 
 double Vector2D::getX() const {

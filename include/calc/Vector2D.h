@@ -31,6 +31,12 @@ class Vector2D {
          */
         Vector2D mirror(const Vector2D& v2d);
 
+        /**
+         * Normalizes (aka making its length 1) the vector by dividing it
+         * by its own length.
+         */
+        void normalize();
+
         double getX() const;
         double getY() const;
         double getLenght() const;

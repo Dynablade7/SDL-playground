@@ -65,6 +65,8 @@ class MapObject {
         void resolveCollision(Hitbox* myHb, Hitbox* otherHb, MapObject* mapObject);
 
         double getX(), getY();
+        double getXVel(), getYVel();
+        void setXVel(double xVel), setYVel(double yVel);
 
         /**
          * Returns the center x/y values of the MapObject, relative to its

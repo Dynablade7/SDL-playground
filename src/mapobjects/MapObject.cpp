@@ -44,34 +44,6 @@ void MapObject::drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite) {
     }
 }
 
-void MapObject::resolveCollision(Hitbox* myHb, Hitbox* otherHb, MapObject* mapObject) {
-    // Perform actions depending on which types of hitboxes collide.
-    switch (myHb->getHitboxType()) {
-    case HitboxType::HURTBOX:
-    {
-        Hurtbox* hb1 = static_cast<Hurtbox*>(myHb);
-        HitboxType otherType = otherHb->getHitboxType();
-        if (otherType == HitboxType::HURTBOX) {
-            Vector2D vel(_xVel, _yVel);
-            double angle = hitbox_rel_angle(myHb, otherHb);
-            Vector2D collisionNormal(1, math_tan(angle));
-            Vector2D newVel = vel.mirror(collisionNormal) * -1;
-            _xVel = newVel.getX();
-            _yVel = newVel.getY();
-        } else if (otherType == HitboxType::ATTACK) {
-            AttackHitbox* hb2 = static_cast<AttackHitbox*>(otherHb);
-            double launchAngle = hitbox_rel_angle(hb1, hb2) + hb2->getLaunchAngle() - 90;
-            applyForce(hb2->getLaunch(), launchAngle);
-        }
-        break;
-    }
-    case HitboxType::ATTACK:
-        break;
-    default:
-        std::cout << "Hitbox not specified in MapObject::onCollision" << std::endl;
-    }
-}
-
 void MapObject::moveObject() {
     _x += _xVel;
     _y -= _yVel;
@@ -100,6 +72,22 @@ double MapObject::getX() {
 
 double MapObject::getY() {
     return _y;
+}
+
+double MapObject::getXVel() {
+    return _xVel;
+}
+
+double MapObject::getYVel() {
+    return _yVel;
+}
+
+void MapObject::setXVel(double xVel) {
+    _xVel = xVel;
+}
+
+void MapObject::setYVel(double yVel) {
+    _yVel = yVel;
 }
 
 double MapObject::getCenterX() {

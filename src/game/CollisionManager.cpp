@@ -56,16 +56,20 @@ void CollisionManager::resolveCollision(MapObject* obj1, Hitbox* hb1, MapObject*
 void CollisionManager::resolveDoubleHurtbox(MapObject* obj1, Hurtbox* hb1,
                                             MapObject* obj2, Hurtbox* hb2) {
 
-    double mass1 = 1, mass2 = 1;
-    double newXVel1 = (obj1->getXVel() * (mass1 - mass2) + 2 * mass2 * obj2->getXVel()) / mass1 + mass2;
-    double newYVel1 = (obj1->getYVel() * (mass1 - mass2) + 2 * mass2 * obj2->getYVel()) / mass1 + mass2;
-    double newXVel2 = (obj2->getXVel() * (mass2 - mass1) + 2 * mass1 * obj1->getXVel()) / mass1 + mass2;
-    double newYVel2 = (obj2->getYVel() * (mass2 - mass1) + 2 * mass1 * obj1->getYVel()) / mass1 + mass2;
+    // Very simple bouncing simulation, utilizing the property of total elastic collision
+    // The resulting angles are not entirely correct at this point
+    double mass1 = 2, mass2 = 1; // Mass should be determined in each MapObject later
+    Vector2D vel1(obj1->getXVel(), obj1->getYVel());
+    Vector2D vel2(obj2->getXVel(), obj2->getYVel());
+    // Calculate the new velocities
+    Vector2D newVel1 = (vel1 * (mass1 - mass2) + vel2 * 2 * mass2) / (mass1 + mass2);
+    Vector2D newVel2 = (vel2 * (mass2 - mass1) + vel1 * 2 * mass1) / (mass1 + mass2);
 
-    obj1->setXVel(newXVel1);
-    obj1->setYVel(newYVel1);
-    //obj2->setXVel(newXVel2);
-    //obj2->setYVel(newYVel2);
+    // Set new velocities
+    obj1->setXVel(newVel1.getX());
+    obj1->setYVel(newVel1.getY());
+    obj2->setXVel(newVel2.getX());
+    obj2->setYVel(newVel2.getY());
 
 
 //    Vector2D vel1(obj1->getXVel(), obj1->getYVel());
@@ -76,15 +80,21 @@ void CollisionManager::resolveDoubleHurtbox(MapObject* obj1, Hurtbox* hb1,
 //    double aci = vel1.scalarProduct(collision);
 //    double bci = vel2.scalarProduct(collision);
 //
-//    // This process is more complex if weight is not equal
+//     This process is more complex if weight is not equal
 //    double acf = bci;
 //    double bcf = aci;
 //
 //    vel1 = vel1 + collision * (acf - aci);
 //    obj1->setXVel(vel1.getX());
 //    obj1->setYVel(vel1.getY());
+//    std::cout << vel2.getX() << " " << vel2.getY() << std::endl;
 //    obj2->setXVel(vel2.getX());
 //    obj2->setYVel(vel2.getY());
+}
+
+void CollisionManager::resolveDoubleAttack(MapObject* obj1, AttackHitbox* hb1,
+                                           MapObject* obj2, AttackHitbox* hb2){
+    // NOT IMPLEMENTED
 }
 
 void CollisionManager::resolveAttackHurtbox(MapObject* obj1, AttackHitbox* hb1,

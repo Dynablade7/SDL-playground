@@ -44,10 +44,38 @@ class CollisionManager : public GameUpdatedListener {
          * @param obj2 - A pointer to one of the colliding MapObjects
          * @param hb2 - A pointer to the hitbox belonging to obj2
          */
-        void resolveCollision(MapObject* obj1, Hitbox* hb1, MapObject* obj2, Hitbox* hb2);
-        void resolveDoubleHurtbox(MapObject* obj1, Hurtbox* hb1, MapObject* obj2, Hurtbox* hb2);
+        void resolveCollision(MapObject* obj1, Hitbox* hb1,
+                              MapObject* obj2, Hitbox* hb2);
+
+        /**
+         * This method takes care of the case when two Hurtboxes collide.
+         * Essentially, the two MapObjects will bounce off each other.
+         * @param obj1 - A pointer to one of the colliding MapObjects
+         * @param hb1 - A pointer to the hitbox belonging to obj1
+         * @param obj2 - A pointer to one of the colliding MapObjects
+         * @param hb2 - A pointer to the hitbox belonging to obj2
+         */
+        void resolveDoubleHurtbox(MapObject* obj1, Hurtbox* hb1,
+                                  MapObject* obj2, Hurtbox* hb2);
+
+        /**
+         * NOT IMPLEMENTED
+         */
+        void resolveDoubleAttack(MapObject* obj1, AttackHitbox* hb1,
+                                 MapObject* obj2, AttackHitbox* hb2);
+
+        /**
+         * Resolves collision between an AttackHitbox and a Hurtbox.
+         * The owner of the Hurtbox is launched and damaged depending
+         * on the specs of the AttackHitbox.
+         * @param obj1 - A pointer to one of the colliding MapObjects
+         * @param hb1 - A pointer to the hitbox belonging to obj1
+         * @param obj2 - A pointer to one of the colliding MapObjects
+         * @param hb2 - A pointer to the hitbox belonging to obj2
+         */
         void resolveAttackHurtbox(MapObject* obj1, AttackHitbox* hb1,
                                   MapObject* obj2, Hurtbox* hb2);
+
         std::vector<MapObject*>* _mapObjects = nullptr;
 };
 

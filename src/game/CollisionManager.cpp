@@ -33,7 +33,7 @@ void CollisionManager::resolveCollision(MapObject* obj1, Hitbox* hb1, MapObject*
         resolveDoubleHurtbox(obj1, box1, obj2, box2);
 
     } else if (hb1->getHitboxType() == HitboxType::HURTBOX &&
-               hb1->getHitboxType() == HitboxType::ATTACK) {
+               hb2->getHitboxType() == HitboxType::ATTACK) {
         // One is AttackHitbox, the other is Hurtbox
         AttackHitbox* box1 = static_cast<AttackHitbox*>(hb2);
         Hurtbox* box2 = static_cast<Hurtbox*>(hb1);
@@ -100,7 +100,6 @@ void CollisionManager::resolveDoubleAttack(MapObject* obj1, AttackHitbox* hb1,
 void CollisionManager::resolveAttackHurtbox(MapObject* obj1, AttackHitbox* hb1,
                                             MapObject* obj2, Hurtbox* hb2) {
     double launchAngle = hitbox_rel_angle(hb2, hb1) + hb1->getLaunchAngle() - 90;
-    std::cout << launchAngle << std::endl;
     obj2->applyForce(hb1->getLaunch(), launchAngle);
 }
 

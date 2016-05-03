@@ -55,15 +55,6 @@ class MapObject {
          */
         void drawHitboxes(SDL_Renderer* renderer, Sprite* hitboxSprite);
 
-        /**
-         * When there is a collision betweenn two hitboxes, this method
-         * resolves it depending on what type of hitboxes collide.
-         * @param myHb - A pointer to the hitbox belonging to this MapObject
-         * @param otherHb - A pointer to the hitbox belonging to the other MapObject
-         * @param mapObject - A pointer to the other MapObject
-         */
-        void resolveCollision(Hitbox* myHb, Hitbox* otherHb, MapObject* mapObject);
-
         double getX(), getY();
         double getXVel(), getYVel();
         void setXVel(double xVel), setYVel(double yVel);

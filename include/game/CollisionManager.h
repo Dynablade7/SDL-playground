@@ -3,6 +3,8 @@
 
 #include <vector>
 #include "GameUpdatedListener.h"
+#include "AttackHitbox.h"
+#include "Hurtbox.h"
 #include "MapObject.h"
 
 class CollisionManager : public GameUpdatedListener {
@@ -33,6 +35,19 @@ class CollisionManager : public GameUpdatedListener {
          * collision management.
          */
         void checkCollisions();
+
+        /**
+         * When there is a collision betweenn two hitboxes, this method
+         * resolves it depending on what type of hitboxes collide.
+         * @param obj1 - A pointer to one of the colliding MapObjects
+         * @param hb1 - A pointer to the hitbox belonging to obj1
+         * @param obj2 - A pointer to one of the colliding MapObjects
+         * @param hb2 - A pointer to the hitbox belonging to obj2
+         */
+        void resolveCollision(MapObject* obj1, Hitbox* hb1, MapObject* obj2, Hitbox* hb2);
+        void resolveDoubleHurtbox(MapObject* obj1, Hurtbox* hb1, MapObject* obj2, Hurtbox* hb2);
+        void resolveAttackHurtbox(MapObject* obj1, AttackHitbox* hb1,
+                                  MapObject* obj2, Hurtbox* hb2);
         std::vector<MapObject*>* _mapObjects = nullptr;
 };
 

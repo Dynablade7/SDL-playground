@@ -6,7 +6,7 @@
  * This is used when checking for collisions - different types
  * colliding have different results.
  */
-enum class HitboxType {HURTBOX, ATTACK, SHIELD};
+enum class HitboxType {HURTBOX, ATTACK, SHIELD, WALL};
 
 /**
  * The base class for all hitboxes in the game.

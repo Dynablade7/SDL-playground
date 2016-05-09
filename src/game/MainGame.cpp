@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "PlayerShip.h"
 #include "SDL_image.h"
+#include "Wall.h"
 
 MainGame::MainGame() {
     _gameState = GameState::PLAY;
@@ -32,18 +33,20 @@ void MainGame::run() {
 }
 
 void MainGame::initSystems() {
-    // Initialize SDL (might not need everything, but I'll go for that for now)
+    // Initialize SDL
     SDL_Init(SDL_INIT_EVERYTHING);
     // Initialize graphics: create window, etc
     _graphicsManager->initGraphics();
-    // Add listeners to vector for them to notified when the game is updated.
+    // Add listeners to vector for them to notified when the game is updated
     gameUpdatedListeners.push_back(_graphicsManager);
     gameUpdatedListeners.push_back(_collisionManager);
     // Create the player ship
     _playerShip = new PlayerShip(30, 30, _graphicsManager);
     _mapObjects->push_back(_playerShip);
-    PlayerShip* testShip1 = new PlayerShip(100, 100, _graphicsManager);
-    _mapObjects->push_back(testShip1);
+    // Create another MapObject to test collisions
+    _mapObjects->push_back(new PlayerShip(100, 100, _graphicsManager));
+    // Create a Wall object to test collisions
+    _mapObjects->push_back(new Wall(200, 200, _graphicsManager));
 }
 
 void MainGame::gameLoop() {

@@ -14,6 +14,10 @@
  * to a Sprite object.
  * To move a MapObject, the moveObject method is called every tick.
  * To change the current velocity, the applyForce method is used.
+ *
+ * Collisions between MapObjects are managed with the use of Hitbox objects.
+ * Each MapObject has a set of hitboxes that make the different MapObjects
+ * interact with each other when the hitboxes intersect with each other.
  */
 class MapObject {
     public:
@@ -93,9 +97,11 @@ class MapObject {
         Sprite* _sprite = nullptr;
 
         /**
-         * This pure virtual method is called in each MapObject's constructor, unless
-         * that specific MapObject does not have any hitboxes. It creates the Hitboxes
-         * associated with each MapObject that are used for collision handling later.
+         * This pure virtual method is called in each MapObject's constructor (unless
+         * that specific MapObject does not have any hitboxes). It creates the Hitboxes
+         * associated with each MapObject that are used for collision handling.
+         *
+         * Different types of hitboxes interact with each other in different ways.
          */
         virtual void generateHitboxes() = 0;
 

@@ -8,6 +8,17 @@
 #include "MapObject.h"
 #include "WallHitbox.h"
 
+/**
+ * An instance of this object is used to check for collisions between
+ * the hitboxes of the game's MapObjects.
+ *
+ * This is done by iterating over all hitboxes of all MapObjects in the game
+ * and checking whether they are intersecting. If the ammount of hitboxes in the
+ * game turns out to be high, a quad-tree algorithm will be implemented to
+ * optimize this step. The type of the colliding hitboxes is then checked,
+ * and action is taken accordingly. See documentation of the resolveCollision method
+ * for details on this.
+ */
 class CollisionManager : public GameUpdatedListener {
     public:
 

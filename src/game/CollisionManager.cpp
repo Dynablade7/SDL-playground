@@ -8,46 +8,70 @@ CollisionManager::CollisionManager(std::vector<MapObject*>* mapObjects) :
 }
 
 void CollisionManager::checkCollisions() {
+    /*
+        This method simply iterates over all hitboxes and checks for collision
+        with the hitboxes of all other MapObjects in the game.
+        If necessary (if there are many objects on the screen at the same time),
+        I will implement a quad-tree algorithm to optimize this control.
+    */
     for (unsigned int i = 0; i < _mapObjects->size() - 1; ++i) {
-        MapObject* temp1 = _mapObjects->at(i);
-        MapObject* temp2 = _mapObjects->at(i + 1);
-        for (unsigned int j = 0; j < temp1->getHitboxes().size(); ++j) {
-            for (unsigned int k = 0; k < temp2->getHitboxes().size(); ++k) {
-                Hitbox* hb1 = temp1->getHitboxes().at(j);
-                Hitbox* hb2 = temp2->getHitboxes().at(k);
-                if (hitbox_collision(hb1, hb2)) {
-                    resolveCollision(temp1, hb1, temp2, hb2);
+        for (unsigned int j = i + 1; j < _mapObjects->size(); ++j) {
+            MapObject* temp1 = _mapObjects->at(i);
+            MapObject* temp2 = _mapObjects->at(j);
+            for (unsigned int a = 0; a < temp1->getHitboxes().size(); ++a) {
+                for (unsigned int b = 0; b < temp2->getHitboxes().size(); ++b) {
+                    Hitbox* hb1 = temp1->getHitboxes().at(a);
+                    Hitbox* hb2 = temp2->getHitboxes().at(b);
+                    if (hitbox_collision(hb1, hb2)) {
+                        // Resolve collision between two hitboxes
+                        resolveCollision(temp1, hb1, temp2, hb2);
+                    }
                 }
             }
         }
     }
 }
 
+/**
+ * See header file for important notes on this method.
+ */
 void CollisionManager::resolveCollision(MapObject* obj1, Hitbox* hb1, MapObject* obj2, Hitbox* hb2) {
+    HitboxType type1 = hb1->getHitboxType();
+    HitboxType type2 = hb2->getHitboxType();
     // Perform actions depending on which types of hitboxes collide
-    if (hb1->getHitboxType() == HitboxType::HURTBOX &&
-        hb2->getHitboxType() == HitboxType::HURTBOX) {
+    if (type1 == HitboxType::HURTBOX &&
+        type2 == HitboxType::HURTBOX) {
         // Both are Hurtboxes
         Hurtbox* box1 = static_cast<Hurtbox*>(hb1);
         Hurtbox* box2 = static_cast<Hurtbox*>(hb2);
         resolveDoubleHurtbox(obj1, box1, obj2, box2);
 
-    } else if (hb1->getHitboxType() == HitboxType::HURTBOX &&
-               hb2->getHitboxType() == HitboxType::ATTACK) {
+    } else if (type1 == HitboxType::HURTBOX &&
+               type2 == HitboxType::ATTACK) {
         // One is AttackHitbox, the other is Hurtbox
         AttackHitbox* box1 = static_cast<AttackHitbox*>(hb2);
         Hurtbox* box2 = static_cast<Hurtbox*>(hb1);
         resolveAttackHurtbox(obj1, box1, obj2, box2);
 
-    } else if (hb1->getHitboxType() == HitboxType::ATTACK &&
-               hb2->getHitboxType() == HitboxType::HURTBOX) {
+    } else if (type1 == HitboxType::ATTACK &&
+               type2 == HitboxType::HURTBOX) {
         // One is Hurtbox, the other is AttackHitbox
         AttackHitbox* box1 = static_cast<AttackHitbox*>(hb1);
         Hurtbox* box2 = static_cast<Hurtbox*>(hb2);
         resolveAttackHurtbox(obj1, box1, obj2, box2);
 
-    } else if (hb1->getHitboxType() == HitboxType::ATTACK &&
-               hb2->getHitboxType() == HitboxType::ATTACK){
+    } else if (type1 == HitboxType::ATTACK &&
+               type2 == HitboxType::ATTACK){
+        // Both are AttackHitboxes
+        AttackHitbox* box1 = static_cast<AttackHitbox*>(hb1);
+        AttackHitbox* box2 = static_cast<AttackHitbox*>(hb2);
+        resolveDoubleAttack(obj1, box1, obj2, box2);
+    } else if (type1 == HitboxType::HURTBOX &&
+               type2 == HitboxType::WALL) {
+        // One is Hurtbox, the other is WallHitbox
+        WallHitbox* box1 = static_cast<WallHitbox*>(hb1);
+        Hurtbox* box2 = static_cast<Hurtbox*>(hb2);
+        resolveWallHurtbox(obj1, box1, obj2, box2);
     } else {
         std::cout << "Hitbox not specified in CollisionManager::resolveCollision" << std::endl;
     }
@@ -71,7 +95,11 @@ void CollisionManager::resolveDoubleHurtbox(MapObject* obj1, Hurtbox* hb1,
     obj2->setXVel(newVel2.getX());
     obj2->setYVel(newVel2.getY());
 
-
+    /**
+     * Below is a councing implementation that contains some error,
+     * making it behave in a poor manner. I am keeping it here until
+     * I figure out the problem.
+     */
 //    Vector2D vel1(obj1->getXVel(), obj1->getYVel());
 //    Vector2D vel2(obj2->getXVel(), obj2->getYVel());
 //    Vector2D collision(hb2->getCenterX() - hb1->getCenterX(),
@@ -101,6 +129,14 @@ void CollisionManager::resolveAttackHurtbox(MapObject* obj1, AttackHitbox* hb1,
                                             MapObject* obj2, Hurtbox* hb2) {
     double launchAngle = hitbox_rel_angle(hb2, hb1) + hb1->getLaunchAngle() - 90;
     obj2->applyForce(hb1->getLaunch(), launchAngle);
+}
+
+
+void CollisionManager::resolveWallHurtbox(MapObject* obj1, WallHitbox* hb1,
+                                          MapObject* obj2, Hurtbox* hb2) {
+    // A very simple and not really realistic bouncing method: reverse the velocities
+    obj1->setXVel(obj1->getXVel() * -1);
+    obj1->setYVel(obj1->getYVel() * -1);
 }
 
 void CollisionManager::GameUpdated() {

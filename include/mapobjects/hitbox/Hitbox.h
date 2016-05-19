@@ -1,6 +1,13 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 
+// Forward declarations
+class AttackHitbox;
+class CollisionAttributes;
+class Hurtbox;
+class MapObject;
+class WallHitbox;
+
 /**
  * Enum representing the type of hitbox.
  * This is used when checking for collisions - different types
@@ -9,13 +16,20 @@
 enum class HitboxType {HURTBOX, ATTACK, SHIELD, WALL};
 
 /**
- * The base class for all hitboxes in the game.
+ * The abstract base class for all hitboxes in the game.
  * Hitboxes are the basic units used for collision control. Each MapObject
  * has a number of different hitboxes attatched to them which are used when
  * checking if it collides with another MapObject.
  *
  * Each hitbox is basically a circle with different attributes depending on
- * what type of hitbox it is.
+ * what type of hitbox it is. The type of Hitbox is defined as one of the
+ * HitboxTypes (see Enum class above) in the respective subclass' constructor.
+ *
+ * A point of interest in this class is the public resolveCollision method that
+ * is called whenever a collision is detected. This method checks what type of hitbox
+ * it collided with and calls one of the private pure virtual versions of resolveCollision.
+ * These are implemented in each subclass, since collisions between different Hitbox
+ * types result different behaviour.
  */
 class Hitbox {
     public:
@@ -51,6 +65,20 @@ class Hitbox {
          * @param angle - The number of degrees that the MapObject is rotated.
          */
         void updateRelativePos(double angle);
+
+        /**
+         * This method is called when a collition is detected. A switch case is used
+         * to find which type of hitbox is colliding with this one, and according to
+         * that, the corresponding pure virtual function is called, delegating the collision
+         * management to each specific subclass.
+         * @param hb - The hitbox that collides with this hitbox
+         * @param obj1 - The MapObject that this Hitbox is attatched to
+         * @param obj2 - The MapObject that hb is attatched to
+         * @return A CollisionAttributes object specifying any change that is to be
+         * made to obj1 (see CollisionAttributes class documentation for details)
+         */
+        virtual CollisionAttributes resolveCollision(Hitbox* hb,
+                                                     MapObject* obj1, MapObject* obj2);
 
         double getX(), getY();
 
@@ -98,6 +126,39 @@ class Hitbox {
          * The type of the hitbox.
          */
         const HitboxType _hitboxType;
+
+        /**
+         * Resolves collision between this hitbox and a Hurtbox.
+         * @param hb - The hitbox that collides with this hitbox
+         * @param obj1 - The MapObject that this Hitbox is attatched to
+         * @param obj2 - The MapObject that hb is attatched to
+         * @return A CollisionAttributes object specifying any change that is to be
+         * made to obj1 (see CollisionAttributes class documentation for details)
+         */
+        virtual CollisionAttributes resolveHurtboxCollision(Hurtbox* hb,
+                                                            MapObject* obj1, MapObject* obj2) = 0;
+
+        /**
+         * Resolves collision between this hitbox and an AttackHitbox.
+         * @param hb - The hitbox that collides with this hitbox
+         * @param obj1 - The MapObject that this Hitbox is attatched to
+         * @param obj2 - The MapObject that hb is attatched to
+         * @return A CollisionAttributes object specifying any change that is to be
+         * made to obj1 (see CollisionAttributes class documentation for details)
+         */
+        virtual CollisionAttributes resolveAttackCollision(AttackHitbox* hb,
+                                                           MapObject* obj1, MapObject* obj2) = 0;
+
+        /**
+         * Resolves collision between this hitbox and a WallHitbox.
+         * @param hb - The hitbox that collides with this hitbox
+         * @param obj1 - The MapObject that this Hitbox is attatched to
+         * @param obj2 - The MapObject that hb is attatched to
+         * @return A CollisionAttributes object specifying any change that is to be
+         * made to obj1 (see CollisionAttributes class documentation for details)
+         */
+        virtual CollisionAttributes resolveWallCollision(WallHitbox* hb,
+                                                         MapObject* obj1, MapObject* obj2) = 0;
 };
 
 /**

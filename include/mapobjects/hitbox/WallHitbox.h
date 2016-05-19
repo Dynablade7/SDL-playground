@@ -3,9 +3,13 @@
 
 #include "Hitbox.h"
 
+// Forward declarations
+class Hurtbox;
+class AttackHitbox;
+
 /**
- * A hitbox to be used for stationary MapObjects that do not interact
- * directly with the rest of the game.
+ * A class derived from the Hitbox class.
+ * This hitbox is to be used for stationary MapObjects (e.g. walls).
  * When there is a collision between a WallHitbox and a Hurtbox, the owner
  * of the Hurtbox will simply bounce off the wall.
  */
@@ -28,6 +32,29 @@ class WallHitbox : public Hitbox {
          * Destructor.
          */
         ~WallHitbox();
+
+    private:
+
+        /**
+         * Implementation of pure virtual method. See base class for general documentation.
+         * Currently returns without changing anything.
+         */
+        CollisionAttributes resolveHurtboxCollision(Hurtbox* hb,
+                                                    MapObject* obj1, MapObject* obj2);
+
+        /**
+         * Implementation of pure virtual method. See base class for general documentation.
+         * Currently returns without changing anything.
+         */
+        CollisionAttributes resolveAttackCollision(AttackHitbox* hb,
+                                                   MapObject* obj1, MapObject* obj2);
+
+        /**
+         * Implementation of pure virtual method. See base class for general documentation.
+         * Currently returns without chaning anything.
+         */
+        CollisionAttributes resolveWallCollision(WallHitbox* hb,
+                                                 MapObject* obj1, MapObject* obj2);
 };
 
 #endif // WALLHITBOX_H

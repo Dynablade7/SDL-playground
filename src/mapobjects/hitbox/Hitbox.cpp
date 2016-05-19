@@ -1,5 +1,10 @@
 #include "Hitbox.h"
+
+#include "AttackHitbox.h"
+#include "CollisionAttributes.h"
+#include "Hurtbox.h"
 #include "MathFunctions.h"
+#include "WallHitbox.h"
 
 Hitbox::Hitbox(double x, double y, double xRel, double yRel, int radius, HitboxType hitboxType) :
     _x(x), _y(y), _xRel(xRel), _yRel(yRel), _radius(radius), _hitboxType(hitboxType) {
@@ -21,6 +26,35 @@ void Hitbox::updateRelativePos(double angle) {
     _angle += angle;
     _xRel = math_cos(_angle, _dist) - _radius;
     _yRel = math_sin(_angle, _dist) - _radius;
+}
+
+CollisionAttributes Hitbox::resolveCollision(Hitbox* hb, MapObject* obj1, MapObject* obj2) {
+    HitboxType type = hb->getHitboxType();
+    // Call a different resolveCollision version depending on the type of hb
+    switch (type) {
+    case HitboxType::HURTBOX:
+    {
+        Hurtbox* box = static_cast<Hurtbox*>(hb);
+        return resolveHurtboxCollision(box, obj1, obj2);
+    }
+    case HitboxType::ATTACK:
+    {
+        AttackHitbox* box = static_cast<AttackHitbox*>(hb);
+        return resolveAttackCollision(box, obj1, obj2);
+    }
+    case HitboxType::WALL:
+    {
+        WallHitbox* box = static_cast<WallHitbox*>(hb);
+        return resolveWallCollision(box, obj1, obj2);
+    }
+    case HitboxType::SHIELD:
+        break;
+    default:
+        break;
+    }
+    // As a default, return no changes
+    return CollisionAttributes(obj1);
+
 }
 
 double Hitbox::getX() {

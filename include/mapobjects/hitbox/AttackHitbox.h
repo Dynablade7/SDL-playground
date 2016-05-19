@@ -3,8 +3,12 @@
 
 #include "Hitbox.h"
 
+// Forward declarations
+class Hurtbox;
+class WallHitbox;
+
 /**
- * A specific type of Hitbox that is used for offensive purposes.
+ * A class derived from the Hitbox class.
  * When an AttackHitbox collides with a Hurtbox, the owner of the Hurtbox
  * will take damage and be launched depending on the specs of the AttackHitbox.
  */
@@ -58,6 +62,27 @@ class AttackHitbox : public Hitbox {
          * to that angle, etc.
          */
         double _launchAngle;
+
+        /**
+         * Implementation of pure virtual method. See base class for general documentation.
+         * Currently returns without changing anything.
+         */
+        CollisionAttributes resolveHurtboxCollision(Hurtbox* hb,
+                                                    MapObject* obj1, MapObject* obj2);
+
+        /**
+         * Implementation of pure virtual method. See base class for general documentation.
+         * Currently returns without changing anything.
+         */
+        CollisionAttributes resolveAttackCollision(AttackHitbox* hb,
+                                                   MapObject* obj1, MapObject* obj2);
+
+        /**
+         * Implementation of pure virtual method. See base class for general documentation.
+         * Currently returns without changing anything.
+         */
+        CollisionAttributes resolveWallCollision(WallHitbox* hb,
+                                                 MapObject* obj1, MapObject* obj2);
 };
 
 #endif // ATTACKHITBOX_H

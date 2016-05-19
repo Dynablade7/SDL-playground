@@ -7,3 +7,24 @@
 - Use something similar to the State pattern to handle different weapons/abilities for the different ships' different parts. A nice, general solution. And different. (lol)
 - Use macros as debugging flag!
 - Implement a general rotation method in the MapObject base class
+
+
+- Idea for a bouncing function that did not prove to work, but I might come back to it later:
+//    Vector2D vel1(obj1->getXVel(), obj1->getYVel());
+//    Vector2D vel2(obj2->getXVel(), obj2->getYVel());
+//    Vector2D collision(hb2->getCenterX() - hb1->getCenterX(),
+//                       hb2->getCenterY() - hb1->getCenterY());
+//    collision.normalize();
+//    double aci = vel1.scalarProduct(collision);
+//    double bci = vel2.scalarProduct(collision);
+//
+//     This process is more complex if weight is not equal
+//    double acf = bci;
+//    double bcf = aci;
+//
+//    vel1 = vel1 + collision * (acf - aci);
+//    obj1->setXVel(vel1.getX());
+//    obj1->setYVel(vel1.getY());
+//    std::cout << vel2.getX() << " " << vel2.getY() << std::endl;
+//    obj2->setXVel(vel2.getX());
+//    obj2->setYVel(vel2.getY());

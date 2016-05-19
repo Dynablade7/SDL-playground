@@ -1,4 +1,4 @@
- # SDL-playground
+ # Space Melee
 
 Feel free to use whatever code you might find interesting in this repo. Also, any feedback is highly appreciated! I am a software engineering student still in the process of learning, so all problem solutions might not be optimal.
 

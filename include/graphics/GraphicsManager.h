@@ -5,11 +5,12 @@
 #include <map>
 #include <vector>
 #include "GameUpdatedListener.h"
-#include "MapObject.h"
 #include "SDL.h"
-#include "SDL_image.h"
-#include "Sprite.h"
 #include "SpriteSpecs.h"
+
+// Forward declarations
+class MapObject;
+class Sprite;
 
 /**
  * Class responsible for everything graphics related.

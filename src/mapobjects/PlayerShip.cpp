@@ -1,8 +1,9 @@
 #include "PlayerShip.h"
 
 #include "AttackHitbox.h"
-#include "SDL.h"
+#include "GraphicsManager.h"
 #include "Hurtbox.h"
+#include "SDL.h"
 
 /* There seem to be some issues with this initialization. Are START_POS_X and Y set
    to 0 when the constructor is called or something? Haven't they been initialized properly yet?

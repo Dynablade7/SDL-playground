@@ -1,6 +1,7 @@
 #include "SpriteSpecs.h"
 
 #include <stdio.h>
+#include "Sprite.h"
 
 Sprite* sspecs_generateSprite(SpriteEnum spriteEnum, SDL_Texture* spriteSheet) {
     // A local SDL_Rect that represents the position and size of the wanted sprite.

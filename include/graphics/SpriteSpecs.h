@@ -2,7 +2,9 @@
 #define SPRITESPECS_H_INCLUDED
 
 #include "SDL.h"
-#include "Sprite.h"
+
+// Forward declarations
+class Sprite;
 
 /*
     ---------------------------------------------------------------------------------------

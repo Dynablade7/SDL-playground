@@ -1,8 +1,10 @@
 #ifndef WALL_H
 #define WALL_H
 
-#include "GraphicsManager.h"
 #include "MapObject.h"
+
+// Forward declarations
+class GraphicsManager;
 
 /**
  * A MapObject representing a wall in the game.

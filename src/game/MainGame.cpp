@@ -1,8 +1,13 @@
 #include "MainGame.h"
+
 #include <iostream>
 #include <stdio.h>
+#include "CollisionManager.h"
+#include "GraphicsManager.h"
+#include "MapObject.h"
 #include "PlayerShip.h"
 #include "SDL_image.h"
+#include "Timer.h"
 #include "Wall.h"
 
 MainGame::MainGame() {

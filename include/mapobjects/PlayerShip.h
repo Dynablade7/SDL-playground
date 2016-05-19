@@ -2,7 +2,9 @@
 #define PLAYERSHIP_H
 
 #include "MapObject.h"
-#include "GraphicsManager.h"
+
+// Forward declarations
+class GraphicsManager;
 
 /**
  * The class containing the MapObject controlled by the player.

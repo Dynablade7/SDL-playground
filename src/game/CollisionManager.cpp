@@ -1,6 +1,7 @@
 #include "CollisionManager.h"
 
 #include "CollisionAttributes.h"
+#include "Hitbox.h"
 #include "MapObject.h"
 #include "Vector2D.h"
 

@@ -3,13 +3,16 @@
 
 #include <iostream>
 #include <vector>
-#include "CollisionManager.h"
-#include "GraphicsManager.h"
-#include "MapObject.h"
-#include "PlayerShip.h"
 #include "SDL.h"
-#include "Sprite.h"
-#include "Timer.h"
+
+// Forward declarations
+class CollisionManager;
+class GameUpdatedListener;
+class GraphicsManager;
+class MapObject;
+class PlayerShip;
+class Sprite;
+class Timer;
 
 // The possible states of the game. Might use a separate state machine later.
 enum class GameState {PLAY, EXIT};

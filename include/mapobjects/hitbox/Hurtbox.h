@@ -1,6 +1,7 @@
 #ifndef HURTBOX_H
 #define HURTBOX_H
 
+#include "Hitbox.h"
 #include "MapObject.h"
 
 /**

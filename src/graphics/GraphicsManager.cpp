@@ -1,6 +1,8 @@
 #include "GraphicsManager.h"
 
 #include <stdio.h>
+#include "MapObject.h"
+#include "SDL_image.h"
 #include "Sprite.h"
 
 GraphicsManager::GraphicsManager(std::vector<MapObject*>* mapObjects) :

@@ -2,9 +2,10 @@
 
 #include <iostream>
 #include <typeinfo>
-#include "Hurtbox.h"
 #include "AttackHitbox.h"
+#include "Hurtbox.h"
 #include "MathFunctions.h"
+#include "Sprite.h"
 #include "Vector2D.h"
 
 MapObject::MapObject(int x, int y, Sprite* sprite) :

@@ -1,4 +1,6 @@
 #include "Wall.h"
+
+#include "GraphicsManager.h"
 #include "WallHitbox.h"
 
 Wall::Wall(int x, int y, Sprite* sprite) :

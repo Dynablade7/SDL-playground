@@ -2,9 +2,11 @@
 #define MAPOBJECT_H
 
 #include <vector>
-#include "Hitbox.h"
 #include "SDL.h"
-#include "Sprite.h"
+
+// Forward declarations
+class Hitbox;
+class Sprite;
 
 /**
  * The abstract base class of all MapObjects. MapObjects are basically all
